@@ -13,8 +13,8 @@ const Sidebar = () => {
         <hr />
         <div className='flex flex-col w-full p-5'>
             <span className=' flex flex-col items-start gap-4 '>
-                {sidebarMenu.map((menu) => (
-                    <button className='font-bold uppercase w-fit hover:opacity-70 active:scale-95'>{menu}</button>
+                {sidebarMenu.map((menu,index) => (
+                    <button key={index} className='font-bold uppercase w-fit hover:opacity-70 active:scale-95'>{menu}</button>
                 ))}
 
             </span>
