@@ -19,7 +19,6 @@ const Carditem = ({task}) => {
         break;   
       }
       return color;
-
     }
 
   return (
