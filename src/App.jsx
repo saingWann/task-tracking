@@ -4,30 +4,33 @@ import Card from './component/Card'
 import Categories from './component/Categories'
 import Sidebar from './component/Sidebar'
 import { api } from './Api'
-import { v4 as uuidv4 } from 'uuid';
 
 const App = () => {
 
   const [todoArray,setTodoArray] = useState([]);
-  const [newTodo,setNewTodo] = useState({})
+
+  const fetchData = async() => {
+
+    const data = await api.get("/todolist")
+    setTodoArray(data.data)
+
+  }
 
   useEffect( ()=>{
-    
-    const fetchData = async() => {
-
-      const data = await api.get("/todolist")
-      console.log(data.data);
-      setTodoArray(data.data)
-    }
     fetchData()
 
   },[])
+
+  const addNewTodoToServer = async(newTask) => {
+    await api.post("/todoList",newTask)
+    setTodoArray([...todoArray,newTask])
+  }
 
   return (
     <main>
       
       <header>
-        <Headbar />
+        <Headbar addNewTodoToServer={addNewTodoToServer}/>
       </header>
 
       <aside>
@@ -39,7 +42,7 @@ const App = () => {
       </section>
 
       <div>
-        <Card todo={todoArray}/>
+        <Card todo={todoArray} />
       </div>
 
     </main>

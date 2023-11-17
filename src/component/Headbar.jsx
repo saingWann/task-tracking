@@ -2,14 +2,19 @@ import { Plus, Search } from 'lucide-react'
 import React, { useState } from 'react'
 import Form from './Form';
 
-const Headbar = () => {
+const Headbar = ({addNewTodoToServer}) => {
 
     const [showForm,setShowForm] = useState(false);
 
 
   return (
       <div className='w-[85%] ms-auto  p-4 bg-white shadow-md'>
-        {showForm ? <Form setShowForm={setShowForm} showForm={showForm} /> : ""}
+        {showForm ? 
+
+          <Form setShowForm={setShowForm} showForm={showForm} addNewTodoToServer={addNewTodoToServer}/> 
+
+        : ""}
+
         <form className='flex justify-center items-center gap-5 w-full'>
             <span className='p-3 flex
             bg-gray-200 rounded-full lg:w-3/4 md:w-3/4'>
