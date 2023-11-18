@@ -1,12 +1,28 @@
+import { useContext, useState } from "react";
 import Carditem from "./Carditem";
+import DataContext from "../Context/Contextapi";
+import Pagination from "./Pagination";
 
-const Card = ({ todo }) => {
+const Card = () => {
+  const { todoArray } = useContext(DataContext);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardPerPage] = useState(6);
+
+  const indexOfLastPost = currentPage * cardPerPage;
+  const indexOfFirstPost = indexOfLastPost - cardPerPage;
+  const currentTodoArray = todoArray.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
-    <section className="w-[85%] ms-auto px-10 text-gray-600 body-font">
+    <section className="w-[85%] flex flex-col ms-auto px-10 text-gray-600 body-font">
       <div className="flex lg:flex-row flex-wrap flex-col">
-        {todo.map((task) => (
+        {currentTodoArray.map((task) => (
           <Carditem key={task.id} task={task} />
         ))}
+      </div>
+
+      <div className=" self-center mt-5">
+          <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} cardsPerPage={cardPerPage} totalCards={todoArray.length}/>
       </div>
     </section>
   );
