@@ -1,3 +1,3 @@
-export const categories = ['all','personal', 'home', 'bussiness', 'study']
+export const categories = ['All','today', 'tomorrow', 'next 7 day', 'calendar',]
 
-export const sidebarMenu = ['all', 'today', 'tomorrow', 'next 7 day', 'calendar', 'trash bin']
+export const sidebarMenu = ['All', 'Personal', 'Home', 'Business', 'Study','Done', 'Trash bin']

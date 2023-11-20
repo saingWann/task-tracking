@@ -1,0 +1,181 @@
+{
+        "title": "json server",
+        "id": 1700321264929,
+        "detail": "when working with json server and you want to delete \nvalue from the api with an id\nthe id MUST BE IN NUMBER TYPE \nbecause it did not work with the string id",
+        "type": "Study",
+        "priority": "high",
+        "createdTime": {
+            "day": 18,
+            "time": "21:57",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": true
+    },
+    {
+        "title": "helllo",
+        "id": 1700321279025,
+        "detail": "when working with json server and you want to delete \nvalue from the api with an id\nthe id MUST BE IN NUMBER TYPE \nbecause it did not work with the string id",
+        "type": "Personal",
+        "priority": "low",
+        "createdTime": {
+            "day": 18,
+            "time": "21:57",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": true
+    },
+    {
+        "title": "buy noodle ",
+        "id": 1700321343316,
+        "detail": "11落葉無歸根 單絲不成線\n無所寄託 亦無心流浪\n你把紅豆贈我不如寫我一首歌\n落款你的名字 工整又好看\n若把你比作歌 ",
+        "type": "Home",
+        "priority": "high",
+        "createdTime": {
+            "day": 18,
+            "time": "21:59",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": true
+    },
+    {
+        "title": "go touch grass",
+        "id": 1700321398536,
+        "detail": "佳人伴舞 天地伴舞\n絕弦的美\n若把你比作歌\n歌寫的我纏綿悱惻\n恆順眾生 遷走我魂\n絕弦的美\n落葉無歸根 單絲不成線",
+        "type": "Personal",
+        "priority": "high",
+        "createdTime": {
+            "day": 18,
+            "time": "21:59",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "vibing",
+        "id": 17321545774,
+        "detail": "vibe with the imposter symdrone \nwhen you spen hours to realize why you can delete a value from the api .( i guess the problem is that the id i work with is a string and json server cna not handle with string .)",
+        "type": "Personal",
+        "priority": "high",
+        "createdTime": {
+            "day": 18,
+            "time": "22:02",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "123",
+        "id": 17001557434,
+        "detail": "佳人伴舞 天地伴舞\n絕弦的美\n若把你比作歌\n歌寫的我纏綿悱惻\n恆順眾生 遷走我魂\n絕弦的美\n落葉無歸根 單絲不成線",
+        "type": "Home",
+        "priority": "mid",
+        "createdTime": {
+            "day": 18,
+            "time": "22:02",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "helllo",
+        "id": 170032127905,
+        "detail": "when working with json server and you want to delete \nvalue from the api with an id\nthe id MUST BE IN NUMBER TYPE \nbecause it did not work with the string id",
+        "type": "Personal",
+        "priority": "low",
+        "createdTime": {
+            "day": 18,
+            "time": "21:57",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "buy noodle ",
+        "id": 17003213436,
+        "detail": "落葉無歸根 單絲不成線\n無所寄託 亦無心流浪\n你把紅豆贈我不如寫我一首歌\n落款你的名字 工整又好看\n若把你比作歌 ",
+        "type": "Home",
+        "priority": "high",
+        "createdTime": {
+            "day": 18,
+            "time": "21:59",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "hello",
+        "id": 1700321657670,
+        "detail": "若把你比作歌\n歌寫的我纏綿悱惻\n恆順眾生 遷走我魂\n絕弦的美\n恆順眾生 遷走我魂\n絕弦的美\n編曲:周成\n吉他:周成",
+        "type": "Business",
+        "priority": "low",
+        "createdTime": {
+            "day": 18,
+            "time": "22:04",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "希望",
+        "id": 1700321724292,
+        "detail": "希望現在正在準備全力以赴的你可以有好成績❤️‍🔥🪶\n辛苦了 再累也不要把自己累倒了",
+        "type": "Personal",
+        "priority": "mid",
+        "createdTime": {
+            "day": 18,
+            "time": "22:05",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "poppy pop bob bob bi bop",
+        "id": 1700323333327,
+        "detail": "232332",
+        "type": "Personal",
+        "priority": "mid",
+        "createdTime": {
+            "day": 18,
+            "time": "22:32",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "希望現在正在準",
+        "id": 1700323457264,
+        "detail": "希望現在正在準 \nduo de shi ni bu zhi dao de shi\nni bu zhi dao wo wei shen me li kai ni",
+        "type": "Personal",
+        "priority": "mid",
+        "createdTime": {
+            "day": 18,
+            "time": "22:34",
+            "month": "Nov"
+        },
+        "complete": false,
+        "moveToTrash": false
+    },
+    {
+        "title": "hello",
+        "id": 1700495193319,
+        "detail": "askfjkasfkhsfsa kbkjlajla",
+        "type": "Study",
+        "priority": "high",
+        "complete": false,
+        "createdTime": {
+            "day": 20,
+            "time": "22:16",
+            "month": "Nov"
+        }
+    }

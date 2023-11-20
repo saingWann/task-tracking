@@ -10,7 +10,11 @@ const Form = ({ setShowForm, showForm }) => {
     detail: "",
     type: "",
     priority: "",
+    complete: false,
+    moveToTrash : false
   });
+
+  const [Characters,setCharacters] = useState(0);
 
   const {addNewTodoToServer} = useContext(DataContext)
 
@@ -33,15 +37,20 @@ const Form = ({ setShowForm, showForm }) => {
     const newData = { ...newTodo, id: new Date().getTime(), createdTime };
     setNewTodo(newData);
     addNewTodoToServer(newData);
-    console.log(newData);
   };
 
 
+  const checkCharacters = (e) => {
+    const length = e.target.value.length;
+    setCharacters(length);
+  }
+
+
   return (
-    <div className="w-full h-screen top-0 left-0 fixed flex justify-center items-center bg-black bg-opacity-50 ">
+    <div className="z-10 w-full h-screen top-0 left-0 fixed flex justify-center items-center bg-black bg-opacity-50 ">
       <form
         onSubmit={(e) => handleSubmitForm(e)}
-        className="lg:w-1/3 md:w-1/2 bg-white flex flex-col  w-full md:py-8 mt-8 md:mt-0 p-10 relative">
+        className="lg:w-1/3 md:w-1/2 rounded-lg bg-white flex flex-col  w-full md:py-8 mt-8 md:mt-0 p-10 relative">
         <span
           className="absolute top-10 right-10 hover:scale-105 cursor-pointer active:scale-100"
           onClick={() => setShowForm(false)}>
@@ -104,7 +113,7 @@ const Form = ({ setShowForm, showForm }) => {
             </option>
             <option>Home</option>
             <option>Personal</option>
-            <option>Bussiness</option>
+            <option>Business</option>
             <option>Study</option>
           </select>
         </div>
@@ -114,13 +123,17 @@ const Form = ({ setShowForm, showForm }) => {
           </label>
           <textarea
             value={newTodo.detail}
-            onChange={(e) => setNewTodo({ ...newTodo, detail: e.target.value })}
+            onChange={(e) => {
+              setNewTodo({ ...newTodo, detail: e.target.value });
+              checkCharacters(e);
+            }}
+            maxLength={100}
             placeholder="Add more detail..."
             id="message"
             name="message"
             className="w-full mt-2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
           <p className="absolute bottom-5 right-5 text-xs text-gray-400">
-            Characters( 0/100 )
+            Characters( {Characters} /100 )
           </p>
         </div>
         <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">

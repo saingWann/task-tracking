@@ -4,7 +4,7 @@ import DataContext from "../Context/Contextapi";
 
 const Carditem = ({task}) => {
     const [showMore,setShowMore] = useState(false);
-    const {deleteTodo} = useContext(DataContext);
+    const {deleteTodo,moveToTrash, HandleComplete} = useContext(DataContext);
 
     const setColor = () => {
       let color = ""
@@ -23,21 +23,20 @@ const Carditem = ({task}) => {
       return color;
     }
 
-    const confirmDelete = (id) => {
-      console.log(id);
-      if(confirm('Are you sure to delete the task from the list.')){
-           deleteTodo(id)
+    const confirmDelete = (id,currentStat) => {
+      if(confirm('Are you sure to move the task to trash bin.')){
+        moveToTrash(id)
       }
       return;
   }
 
 
   return (
-    <div onMouseLeave={()=>{setShowMore(false)}} className="lg:w-1/3 p-5">
-    <span className={`p-3 text-white rounded-t-lg font-bold block w-full ${setColor()} tracking-widest capitalize`}>
-      {task.priority} 
+    <div onMouseLeave={()=>{setShowMore(false)}} className={`lg:w-1/3 p-5 `}>
+    <span className={`p-3 text-white rounded-t-lg font-bold block w-full ${task.complete? "bg-gray-300 text-black" : ""} ${setColor()} tracking-widest capitalize`}>
+      {task.complete ? "Done" : task.priority} 
     </span>
-    <div className="h-fit max-h-[16rem] flex items-start py-8 px-4 bg-white border shadow-lg rounded-b-lg">
+    <div className={`h-fit max-h-[16rem] flex items-start py-8 px-4 bg-white border shadow-lg rounded-b-lg `}>
       <div className="w-12 flex-shrink-0 flex flex-col text-center leading-none">
         <span className="text-gray-500 pb-2 mb-2 border-b-2 border-gray-200">
           {task.createdTime.month}
@@ -48,25 +47,33 @@ const Carditem = ({task}) => {
       </div>
       <div className="flex-grow pl-6">
         <span className="flex justify-between">
-          <p className="uppercase font-medium w-fit bg-indigo-700 px-4 py-2 text-[10px] rounded-full text-white mb-1">
+          <p className={`uppercase font-medium w-fit ${task.complete ? "bg-gray-300 text-gray-600" : "text-white bg-indigo-700"} px-4 py-2 text-[10px] rounded-full  mb-1`}>
             {task.type}
           </p>
           <span className="flex gap-4">
-            <button>
+            <button className={``} onClick={() => HandleComplete(task.id,task.complete)}>
               <CheckSquare
-                className="hover:opacity-50 active:scale-95"
+                className={`hover:opacity-50 active:scale-95 ${task.complete? "text-green-600 font-bold" : ""}`}
                 size={18}
+                
               />
             </button>
-            <button>
+            <button className={`${task.complete? "pointer-events-none cursor-none" : ""}`}>
               <Edit2Icon
-                className="hover:opacity-50 active:scale-95"
+                className={`hover:opacity-50 active:scale-95 `}
                 size={18}
               />
             </button>
-            <button onClick={() => confirmDelete(task.id)}>
+            
+            <button onClick={() => {
+              if(task.moveToTrash === true){
+                deleteTodo(task.id)
+              }else {
+                confirmDelete(task.id,task.moveToTrash)
+              }
+            }}>
               <Trash2Icon
-                className="hover:opacity-50 active:scale-95"
+                className={`hover:opacity-50 active:scale-95 ${task.complete? "text-green-600 font-bold" : ""}`}
                 size={18}
               />
             </button>

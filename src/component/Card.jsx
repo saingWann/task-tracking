@@ -14,14 +14,14 @@ const Card = () => {
   const currentTodoArray = todoArray.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
-    <section className="w-[85%] flex flex-col ms-auto px-10 text-gray-600 body-font">
+    <section className="w-[85%] flex flex-col ms-auto px-10 text-gray-600 body-font relative my-10">
       <div className="flex lg:flex-row flex-wrap flex-col">
         {currentTodoArray.map((task) => (
           <Carditem key={task.id} task={task} />
         ))}
       </div>
 
-      <div className=" self-center mt-5">
+      <div className="self-center mt-5 absolute -top-28 left-48">
           <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} cardsPerPage={cardPerPage} totalCards={todoArray.length}/>
       </div>
     </section>
