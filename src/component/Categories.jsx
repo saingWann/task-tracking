@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { categories } from '../constant'
-import { Copyright,UserCircle,Briefcase,BookOpenText,Home,Trash2,MenuSquare } from "lucide-react";
+import { UserCircle,Briefcase,BookOpenText,Home,Trash2,MenuSquare } from "lucide-react";
 import DataContext from '../Context/Contextapi'
 
 const Categories = () => {

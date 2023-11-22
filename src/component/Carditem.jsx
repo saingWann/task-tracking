@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { CheckSquare, Edit2Icon, Trash2Icon } from "lucide-react";
 import DataContext from "../Context/Contextapi";
+import {motion} from 'framer-motion';
 
-const Carditem = ({task}) => {
+const Carditem = ({task,index}) => {
     const [showMore,setShowMore] = useState(false);
-    const {deleteTodo,moveToTrash, HandleComplete} = useContext(DataContext);
+    const {deleteTodo,moveToTrash,setEdit,setTaskToEdit,setShowForm, HandleComplete} = useContext(DataContext);
 
     const setColor = () => {
       let color = ""
@@ -30,9 +31,31 @@ const Carditem = ({task}) => {
       return;
   }
 
+  const formAnimation = {
+    hidden: {
+      opacity : 0,
+      y:-100
+
+    },
+    show: {
+      opacity: 1,
+      y:0,
+      transition: {
+        duration: 0.2,
+        type: "tween",
+        delay: index * 0.1,
+        ease: "backInOut"
+      },
+    }
+  }
 
   return (
-    <div onMouseLeave={()=>{setShowMore(false)}} className={`lg:w-1/3 p-5 `}>
+    <motion.div
+    variants={formAnimation}
+    initial = "hidden"
+    animate = "show"
+    layout
+     onMouseLeave={()=>{setShowMore(false)}} className={`lg:w-1/3 p-5 `}>
     <span className={`p-3 text-white rounded-t-lg font-bold block w-full ${task.complete? "bg-gray-300 text-black" : ""} ${setColor()} tracking-widest capitalize`}>
       {task.complete ? "Done" : task.priority} 
     </span>
@@ -60,6 +83,12 @@ const Carditem = ({task}) => {
             </button>
             <button className={`${task.complete? "pointer-events-none cursor-none" : ""}`}>
               <Edit2Icon
+                onClick={() => {
+                  // editCarDItem(task.id)
+                  setEdit(true)
+                  setTaskToEdit(task)
+                  setShowForm(true)
+                }}
                 className={`hover:opacity-50 active:scale-95 `}
                 size={18}
               />
@@ -88,7 +117,7 @@ const Carditem = ({task}) => {
         </p>
       </div>
     </div>
-  </div>
+  </motion.div>
   )
 }
 

@@ -5,15 +5,14 @@ import DataContext from '../Context/Contextapi';
 
 const Headbar = () => {
 
-    const addNewTodoToServer = useContext(DataContext);
-    
-    const [showForm,setShowForm] = useState(false);
+    const {showForm,setShowForm} = useContext(DataContext);
+  
 
   return (
       <div className='w-[85%] ms-auto  p-4 bg-white shadow-md'>
         {showForm ? 
 
-          <Form setShowForm={setShowForm} showForm={showForm} addNewTodoToServer={addNewTodoToServer}/> 
+          <Form /> 
 
         : ""}
 

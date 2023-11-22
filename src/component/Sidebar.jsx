@@ -5,8 +5,9 @@ import DataContext from "../Context/Contextapi";
 import { api } from "../Api";
 
 const Sidebar = () => {
+
   const [baseTodo, setBaseTodo] = useState([]);
-  const { renderByType, setActiveTab, activeTab,todoArray } = useContext(DataContext);
+  const { renderByType, setActiveTab, activeTab,todoArray,setCurrentPage } = useContext(DataContext);
 
   const fetchData = async () => {
     const data = await api.get("/todolist");
@@ -17,6 +18,10 @@ const Sidebar = () => {
 
   useEffect(() => {
     fetchData();
+    
+    if(Math.ceil(todoArray.length / 6) === 1){
+      setCurrentPage(1)
+    }
   }, [todoArray]);
 
   const countByType = (type) => {
