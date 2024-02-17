@@ -15,6 +15,7 @@ const App = () => {
   const [edit, setEdit] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState({});
   const [isChanged, setIsChanged] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const fetchData = async () => {
     const data = await api.get("/todolist");
@@ -141,27 +142,27 @@ const App = () => {
         setTaskToEdit,
         setShowForm,
         showForm,
+        showMenu,
+        setShowMenu,
       }}
     >
-      <header>
-        <Headbar />
-      </header>
+      <main>
+        <header>
+          <Headbar />
+        </header>
 
-      <aside>
-        <Sidebar />
-      </aside>
+        <aside>
+          <Sidebar />
+        </aside>
 
-      {/* <section>
-        <Categories />
-      </section> */}
+        <section>
+          <FormGroup />
+        </section>
 
-      <section>
-        <FormGroup />
-      </section>
-
-      <div>
-        <Card />
-      </div>
+        <div>
+          <Card />
+        </div>
+      </main>
     </DataContext.Provider>
   );
 };

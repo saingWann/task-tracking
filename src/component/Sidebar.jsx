@@ -9,14 +9,22 @@ import {
   Trash2,
   MenuSquare,
   CheckCircle2,
+  X,
 } from "lucide-react";
 import DataContext from "../Context/Contextapi";
 import { api } from "../Api";
 
 const Sidebar = () => {
   const [baseTodo, setBaseTodo] = useState([]);
-  const { setActiveTab, activeTab, todoArray, setCurrentPage, setTodoArray } =
-    useContext(DataContext);
+  const {
+    setActiveTab,
+    activeTab,
+    todoArray,
+    setCurrentPage,
+    setTodoArray,
+    showMenu,
+    setShowMenu,
+  } = useContext(DataContext);
 
   const fetchData = async () => {
     const response = await api.get("/todolist");
@@ -96,15 +104,28 @@ const Sidebar = () => {
     }
   };
 
+  const handleMenu = () => {
+    setShowMenu(!showMenu);
+  };
   return (
-    <div className="w-[15%] min-h-screen flex flex-col justify-between fixed top-0 bg-gray-50">
+    <div
+      className={`lg:w-[15%] md:w-[25%] min-h-screen lg:flex md:flex fixed sm:flex flex-col justify-between overflow-hidden top-0  bg-gray-50 z-10 transition-all duration-300 ${
+        showMenu ? "left-0" : "max-md:-left-full"
+      }`}
+    >
       <div>
         <div className="flex flex-col w-full px-5 py-4">
+          <X
+            onClick={handleMenu}
+            size={30}
+            strokeWidth={2}
+            className={`${showMenu ? "block" : "hidden"}`}
+          />
           <p className="font-bold text-xl">KeepOnTrack.</p>
           <p className="capitalize text-sm text-gray-500">stay progressive</p>
         </div>
         <hr />
-        <div className="flex flex-col w-full p-5">
+        <div className="flex flex-col w-full  p-5">
           <span className=" flex flex-col items-start gap-1 ">
             {sidebarMenu.map((menu, index) => (
               <button
@@ -115,6 +136,7 @@ const Sidebar = () => {
                 onClick={() => {
                   renderByType(menu);
                   setActiveTab(menu);
+                  setShowMenu(!showMenu);
                 }}
               >
                 {iconType(menu)}
@@ -132,8 +154,8 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="p-5">
-        <p className="font-semibold capitalize text-sm text-gray-500 flex gap-1">
+      <div className="p-5 mt-32">
+        <p className="font-semibold whitespace-nowrap capitalize text-sm   text-gray-500 flex gap-1">
           privacy terms
           <Copyright />
         </p>

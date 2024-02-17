@@ -146,12 +146,12 @@ const Carditem = ({ task, index }) => {
               </button>
             </span>
           </span>
-          <h1 className="title-font uppercase text-xl font-medium text-gray-900 mb-3">
+          <h1 className="title-font uppercase lg:text-xl text-base font-medium text-gray-900 mb-3">
             {task.title}
           </h1>
           <p
             onClick={() => setShowMore(!showMore)}
-            className={`leading-relaxed mb-5 text-sm ${
+            className={`leading-relaxed mb-5 lg:text-sm text-xs ${
               showMore ? "line-clamp-4" : "line-clamp-2"
             }`}
           >
