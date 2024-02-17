@@ -5,6 +5,7 @@ import Categories from "./component/Categories";
 import Sidebar from "./component/Sidebar";
 import { api } from "./Api";
 import DataContext from "./Context/Contextapi";
+import FormGroup from "./component/FormGroup";
 
 const App = () => {
   const [todoArray, setTodoArray] = useState([]);
@@ -13,115 +14,102 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [edit, setEdit] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState({});
+  const [isChanged, setIsChanged] = useState(false);
 
   const fetchData = async () => {
     const data = await api.get("/todolist");
 
-    setTodoArray(
-      data.data.filter(
-        (task) => task.moveToTrash === false && task.complete === false
-      )
-    );
+    // to stay on the last active tab when the component got re-render
+    if (activeTab === "Done") {
+      setTodoArray(
+        data.data.filter(
+          (task) => task.moveToTrash === false && task.complete === true
+        )
+      );
+    } else if (activeTab === "Trash bin") {
+      setTodoArray(data.data.filter((task) => task.moveToTrash === true));
+    } else if (activeTab === "All") {
+      setTodoArray(
+        data.data.filter(
+          (task) => task.moveToTrash === false && task.complete === false
+        )
+      );
+    } else {
+      setTodoArray(
+        data.data.filter(
+          (task) =>
+            task.moveToTrash === false &&
+            task.complete === false &&
+            task.type === activeTab
+        )
+      );
+    }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+    // if (todoArray.length) renderByType(activeTab);
+  }, [isChanged]);
 
   // add new task
   const addNewTodoToServer = async (newTask) => {
     await api.post("/todoList", newTask);
-    setTodoArray([...todoArray, newTask]);
+    // setTodoArray([...todoArray, newTask]);
+    setIsChanged(!isChanged);
   };
 
   // delete task from the api and the state
   const deleteTodo = async (id) => {
     if (confirm("You sure!This task will be remove permently!")) {
       await api.delete(`/todolist/${id}`);
-      const newTodo = [...todoArray];
-      setTodoArray(newTodo.filter((task) => task.id !== id));
-      return;
+      setIsChanged(!isChanged);
     }
     return;
   };
 
   // partial edit
   const editCardItem = async (id) => {
-    await api.patch(`/todoList/${id}`, {...taskToEdit});
+    await api.patch(`/todoList/${id}`, { ...taskToEdit });
 
-    const currentTodo = todoArray.map((task) => {
-      if (task.id === id) {
-        task = {...taskToEdit}
-        return task;
-      }
-      return task;
-    });
-
-    setTodoArray(currentTodo);
-
+    setIsChanged(!isChanged);
   };
 
   // move to bin function
   const moveToTrash = async (id, currentStat) => {
     await api.patch(`/todoList/${id}`, { moveToTrash: !currentStat });
 
-    const currentTodo = todoArray.map((task) => {
-      if (task.id === id) {
-        task.moveToTrash = !currentStat;
-        return task;
-      }
-      return task;
-    });
-
-    setTodoArray(currentTodo.filter((task) => task.moveToTrash === false));
+    setIsChanged(!isChanged);
   };
 
   // partial upadte the data
   const HandleComplete = async (id, currentStat) => {
-    await api.patch(`/todoList/${id}`, { complete: !currentStat });
-
     if (!currentStat) {
       if (confirm("This task will be move to 'Done' section.")) {
-        const currentTodo = todoArray.map((task) => {
-          if (task.id === id) {
-            task.complete = !currentStat;
-            return task;
-          }
-          return task;
-        });
-
-        setTodoArray(currentTodo.filter((task) => task.complete === false));
+        setIsChanged(!isChanged);
+        await api.patch(`/todoList/${id}`, { complete: !currentStat });
       }
     } else {
       if (confirm("This task will set to undone.")) {
-        const currentTodo = todoArray.map((task) => {
-          if (task.id === id) {
-            task.complete = !currentStat;
-            return task;
-          }
-          return task;
-        });
-
-        setTodoArray(currentTodo.filter((task) => task.complete === true));
+        setIsChanged(!isChanged);
+        await api.patch(`/todoList/${id}`, { complete: !currentStat });
       }
     }
   };
 
-  // filter by categories
-  const renderByType = async (type) => {
-    const data = await api.get("/todolist");
+  const renderByType = (type) => {
+    console.log("rerneder and run");
     if (type === "All") {
       setTodoArray(
-        data.data.filter(
+        todoArray.filter(
           (task) => task.moveToTrash !== true && task.complete === false
         )
       );
     } else if (type === "Trash bin") {
-      setTodoArray(data.data.filter((task) => task.moveToTrash === true));
+      setTodoArray(todoArray.filter((task) => task.moveToTrash === true));
     } else if (type === "Done") {
-      setTodoArray(data.data.filter((task) => task.complete === true));
+      setTodoArray(todoArray.filter((task) => task.complete === true));
     } else {
-      const currentTodoArray = [...data.data];
+      const currentTodoArray = [...todoArray];
       const filteredArray = currentTodoArray.filter(
         (task) =>
           task.type === type &&
@@ -131,6 +119,7 @@ const App = () => {
       setTodoArray(filteredArray);
     }
   };
+  // renderByType(activeTab);
 
   return (
     <DataContext.Provider
@@ -139,7 +128,7 @@ const App = () => {
         addNewTodoToServer,
         deleteTodo,
         HandleComplete,
-        renderByType,
+        setTodoArray,
         activeTab,
         setActiveTab,
         moveToTrash,
@@ -152,7 +141,8 @@ const App = () => {
         setTaskToEdit,
         setShowForm,
         showForm,
-      }}>
+      }}
+    >
       <header>
         <Headbar />
       </header>
@@ -161,8 +151,12 @@ const App = () => {
         <Sidebar />
       </aside>
 
-      <section>
+      {/* <section>
         <Categories />
+      </section> */}
+
+      <section>
+        <FormGroup />
       </section>
 
       <div>
