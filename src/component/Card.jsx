@@ -15,7 +15,7 @@ const Card = () => {
   const currentTodoArray = todoArray.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
-    <section className="lg:w-[85%] md:w-[75%] w-full flex flex-col ms-auto lg:px-10 md:px-10 text-gray-600 body-font relative my-10">
+    <section className="lg:w-[85%] md:w-[75%] w-full flex flex-col ms-auto lg:px-10 md:px-10 text-gray-600 body-font relative mt-10">
       <Categories />
       <motion.div className="flex lg:flex-row flex-wrap flex-col lg:order-1 -order-1">
         {todoArray.length === 0 ? (

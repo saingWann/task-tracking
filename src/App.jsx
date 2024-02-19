@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Headbar from "./component/Headbar";
 import Card from "./component/Card";
-import Categories from "./component/Categories";
 import Sidebar from "./component/Sidebar";
 import { api } from "./Api";
 import DataContext from "./Context/Contextapi";
@@ -96,31 +95,6 @@ const App = () => {
       }
     }
   };
-
-  const renderByType = (type) => {
-    console.log("rerneder and run");
-    if (type === "All") {
-      setTodoArray(
-        todoArray.filter(
-          (task) => task.moveToTrash !== true && task.complete === false
-        )
-      );
-    } else if (type === "Trash bin") {
-      setTodoArray(todoArray.filter((task) => task.moveToTrash === true));
-    } else if (type === "Done") {
-      setTodoArray(todoArray.filter((task) => task.complete === true));
-    } else {
-      const currentTodoArray = [...todoArray];
-      const filteredArray = currentTodoArray.filter(
-        (task) =>
-          task.type === type &&
-          task.moveToTrash === false &&
-          task.complete === false
-      );
-      setTodoArray(filteredArray);
-    }
-  };
-  // renderByType(activeTab);
 
   return (
     <DataContext.Provider

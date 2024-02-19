@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import {
   UserCircle,
   Briefcase,
@@ -35,8 +35,8 @@ const Categories = () => {
 
   return (
     <div className="w-full ms-auto  max-sm:px-10">
-      <div className="flex justify-between items-center gap-5 border-b-2 pb-5">
-        <div className="flex gap-3 mt-auto">
+      <div className="flex justify-between items-center gap-5 border-b-2 pb-5 max-sm:border-t-2 border-black max-sm:pt-5">
+        <div className="flex gap-3 mt-auto ">
           <p className="font-bold flex gap-2 pointer-events-none">
             {iconType(activeTab)}
             {activeTab}

@@ -136,7 +136,7 @@ const Sidebar = () => {
                 onClick={() => {
                   renderByType(menu);
                   setActiveTab(menu);
-                  setShowMenu(!showMenu);
+                  if (showMenu) setShowMenu(!showMenu);
                 }}
               >
                 {iconType(menu)}

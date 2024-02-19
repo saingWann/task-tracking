@@ -11,7 +11,7 @@ const Headbar = () => {
     setShowMenu(!showMenu);
   };
   return (
-    <div className="lg:w-[85%] md:w-[75%] w-full ms-auto whitespace-nowrap p-4 bg-white shadow-md max-sm:sticky top-0">
+    <div className="lg:w-[85%] md:w-[75%] w-full ms-auto  p-4 bg-white shadow-md max-sm:sticky top-0">
       <form className="flex justify-between items-center gap-5 w-full">
         <button type="button" className="lg:hidden md:hidden sm:block">
           <AlignLeft onClick={handleMenu} size={25} strokeWidth={2} />
