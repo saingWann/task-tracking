@@ -1,8 +1,11 @@
 import { CopyX } from "lucide-react";
-import { motion as m } from 'framer-motion';
+import { motion as m } from "framer-motion";
 
 import React, { useContext, useState } from "react";
 import DataContext from "../Context/Contextapi";
+
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFormState } from "../redux/formSlice";
 
 const AddTaskForm = () => {
   const [newTodo, setNewTodo] = useState({
@@ -12,17 +15,20 @@ const AddTaskForm = () => {
     type: "",
     priority: "",
     complete: false,
-    moveToTrash : false
+    moveToTrash: false,
   });
 
-  const [Characters,setCharacters] = useState(0);
+  const [Characters, setCharacters] = useState(0);
 
-  const {addNewTodoToServer,showForm,setShowForm} = useContext(DataContext)
- 
+  const { addNewTodoToServer } = useContext(DataContext);
+
+  const { isShown } = useSelector((state) => state.formState);
+
+  const dispatch = useDispatch();
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    setShowForm(!showForm);
+    dispatch(toggleFormState());
     const createdDate = new Date().getDate();
     const createdMonth = new Date().toLocaleString("default", {
       month: "short",
@@ -41,47 +47,41 @@ const AddTaskForm = () => {
     addNewTodoToServer(newData);
   };
 
-
-
   const checkCharacters = (e) => {
     const length = e.target.value.length;
     setCharacters(length);
-  }
+  };
 
-
-    // animation stuff
-    const formAnimation = {
-      hidden: {
-        opacity : 0,
-        y:-200
-  
+  // animation stuff
+  const formAnimation = {
+    hidden: {
+      opacity: 0,
+      y: -200,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.25,
+        type: "tween",
       },
-      show: {
-        opacity: 1,
-        y:0,
-        transition: {
-          duration: 0.25,
-          type: "tween"
-        },
-      }
-    }
-
+    },
+  };
 
   return (
-  
-    <m.div
-    className="z-10 w-full h-screen top-0 left-0 fixed flex justify-center items-center bg-black bg-opacity-50 ">
+    <m.div className="z-10 w-full h-screen top-0 left-0 fixed flex justify-center items-center bg-black bg-opacity-50 ">
       <m.form
         variants={formAnimation}
-        initial = "hidden"
-        animate = "show"
-        
+        initial="hidden"
+        animate="show"
         onSubmit={(e) => handleSubmitForm(e)}
-        className="lg:w-1/3 md:w-1/2 rounded-lg bg-white flex flex-col  w-full md:py-8 mt-8 md:mt-0 p-10 relative">
+        className="lg:w-1/3 md:w-1/2 rounded-lg bg-white flex flex-col  w-full md:py-8 mt-8 md:mt-0 p-10 relative"
+      >
         <span
           className="absolute top-10 right-10 hover:scale-105 cursor-pointer active:scale-100"
-          onClick={() => setShowForm(false)}>
-          <CopyX className="text-indigo-500"/>
+          onClick={() => dispatch(toggleFormState())}
+        >
+          <CopyX className="text-indigo-500" />
         </span>
 
         <h2 className="text-gray-900 text-xl mb-1 font-medium">Add new todo</h2>
@@ -116,7 +116,8 @@ const AddTaskForm = () => {
               setNewTodo({ ...newTodo, priority: e.target.value })
             }
             id="select-1"
-            className="mt-2 p-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+            className="mt-2 p-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+          >
             <option disabled={true} value="">
               -- Set the priority --
             </option>
@@ -134,7 +135,8 @@ const AddTaskForm = () => {
             value={newTodo.type}
             onChange={(e) => setNewTodo({ ...newTodo, type: e.target.value })}
             id="select-1"
-            className="mt-2 p-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+            className="mt-2 p-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+          >
             <option disabled={true} value="">
               -- Choose the type --
             </option>
@@ -158,7 +160,8 @@ const AddTaskForm = () => {
             placeholder="Add more detail..."
             id="message"
             name="message"
-            className="w-full mt-2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+            className="w-full mt-2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+          ></textarea>
           <p className="absolute bottom-5 right-5 text-xs text-gray-400">
             Characters( {Characters} /100 )
           </p>

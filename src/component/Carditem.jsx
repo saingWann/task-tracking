@@ -2,18 +2,21 @@ import React, { useContext, useState } from "react";
 import { CheckSquare, Edit2Icon, Trash2Icon } from "lucide-react";
 import DataContext from "../Context/Contextapi";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { toggleEditState } from "../redux/formSlice";
 
 const Carditem = ({ task, index }) => {
   const [showMore, setShowMore] = useState(false);
   const {
     deleteTodo,
     moveToTrash,
-    edit,
     setEdit,
     setTaskToEdit,
     setShowForm,
     HandleComplete,
   } = useContext(DataContext);
+
+  const dispatch = useDispatch();
 
   const setColor = () => {
     let color = "";
@@ -117,9 +120,8 @@ const Carditem = ({ task, index }) => {
               >
                 <Edit2Icon
                   onClick={() => {
-                    setEdit(true);
+                    dispatch(toggleEditState());
                     setTaskToEdit(task);
-                    setShowForm(true);
                   }}
                   className={`hover:opacity-50 active:scale-95 ${
                     !task.complete && !task.moveToTrash

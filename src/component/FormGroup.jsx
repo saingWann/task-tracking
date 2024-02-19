@@ -3,18 +3,18 @@ import DataContext from "../Context/Contextapi";
 import EditForm from "./EditForm";
 import AddTaskForm from "./AddTaskForm";
 import { AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const FormGroup = () => {
-  const { edit, showForm } = useContext(DataContext);
-
+  const { isShown, isEdit } = useSelector((state) => state.formState);
   // only in the state where the edit and showform both true
-  if (edit && showForm) {
+  if (isEdit && isShown) {
     return (
       <AnimatePresence>
         <EditForm />
       </AnimatePresence>
     );
-  } else if (showForm) {
+  } else if (isShown) {
     // only in the state of showForm is true
     return (
       <AnimatePresence>

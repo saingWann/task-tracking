@@ -1,11 +1,11 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentPage } from "../redux/currentPage";
 
-const Pagination = ({
-  cardsPerPage,
-  totalCards,
-  setCurrentPage,
-  currentPage,
-}) => {
+const Pagination = ({ cardsPerPage, totalCards }) => {
+  const currentPage = useSelector((state) => state.currentPage);
+  const dispatch = useDispatch();
+
   const pageNumber = [];
 
   for (let i = 1; i <= Math.ceil(totalCards / cardsPerPage); i++) {
@@ -19,7 +19,7 @@ const Pagination = ({
       {pageNumber.map((number) => (
         <button
           key={number}
-          onClick={() => setCurrentPage(number)}
+          onClick={() => dispatch(setCurrentPage(number))}
           className={`rounded-md text-sm border border-black px-4 py-2 active:scale-95 hover:bg-black hover:text-white 
           ${currentPage == number ? "bg-black text-white" : ""}`}
         >

@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
-import Headbar from "./component/Headbar";
-import Card from "./component/Card";
-import Sidebar from "./component/Sidebar";
 import { api } from "./Api";
 import DataContext from "./Context/Contextapi";
-import FormGroup from "./component/FormGroup";
+import { Headbar, Card, Sidebar, FormGroup } from "./component/index";
+import { fetchData } from "./redux/taskDataSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
   const [todoArray, setTodoArray] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [activeTab, setActiveTab] = useState("All");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [edit, setEdit] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState({});
   const [isChanged, setIsChanged] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const activeTab = useSelector((state) => state.activeTab);
 
-  const fetchData = async () => {
+  const fetchData1 = async () => {
     const data = await api.get("/todolist");
 
     // to stay on the last active tab when the component got re-render
@@ -46,10 +41,23 @@ const App = () => {
     }
   };
 
+  // useEffect(() => {
+  //   fetchData();
+  //   // if (todoArray.length) renderByType(activeTab);
+  // }, [isChanged]);
+
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.allTasks);
+
   useEffect(() => {
-    fetchData();
-    // if (todoArray.length) renderByType(activeTab);
-  }, [isChanged]);
+    dispatch(fetchData());
+    // console.log(selectAllData);
+    console.log(data);
+  }, [dispatch]);
+
+  const handleAdd = () => {
+    dispatch(addData({ name: "New Item" }));
+  };
 
   // add new task
   const addNewTodoToServer = async (newTask) => {
@@ -104,20 +112,10 @@ const App = () => {
         deleteTodo,
         HandleComplete,
         setTodoArray,
-        activeTab,
-        setActiveTab,
         moveToTrash,
-        setCurrentPage,
-        currentPage,
         editCardItem,
-        edit,
-        setEdit,
         taskToEdit,
         setTaskToEdit,
-        setShowForm,
-        showForm,
-        showMenu,
-        setShowMenu,
       }}
     >
       <main>

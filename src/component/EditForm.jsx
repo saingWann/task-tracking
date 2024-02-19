@@ -4,16 +4,13 @@ import { motion as m } from "framer-motion";
 import React, { useContext, useState } from "react";
 import DataContext from "../Context/Contextapi";
 
+import { useDispatch } from "react-redux";
+import { toggleEditState } from "../redux/formSlice";
+
 const EditForm = () => {
   const [Characters, setCharacters] = useState(0);
-  const {
-    editCardItem,
-    taskToEdit,
-    showForm,
-    setShowForm,
-    setTaskToEdit,
-    setEdit,
-  } = useContext(DataContext);
+  const { editCardItem, taskToEdit, setTaskToEdit } = useContext(DataContext);
+  const dispatch = useDispatch();
 
   const checkCharacters = (e) => {
     const length = e.target.value.length;
@@ -22,9 +19,8 @@ const EditForm = () => {
 
   const handleEditSubmitForm = (e) => {
     e.preventDefault();
-    setShowForm(!showForm);
     editCardItem(taskToEdit.id);
-    setEdit(false);
+    dispatch(toggleEditState());
   };
 
   // animation stuff
@@ -55,8 +51,7 @@ const EditForm = () => {
         <span
           className="absolute top-10 right-10 hover:scale-105 cursor-pointer active:scale-100"
           onClick={() => {
-            setShowForm(false);
-            setEdit(false);
+            dispatch(toggleEditState());
           }}
         >
           <CopyX className="text-orange-500" />

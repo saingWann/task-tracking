@@ -1,30 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { sidebarMenu } from "../constant";
-import {
-  Copyright,
-  UserCircle,
-  Briefcase,
-  BookOpenText,
-  Home,
-  Trash2,
-  MenuSquare,
-  CheckCircle2,
-  X,
-} from "lucide-react";
+import { Copyright, X } from "lucide-react";
 import DataContext from "../Context/Contextapi";
 import { api } from "../Api";
+import { useSelector, useDispatch } from "react-redux";
+import { setActiveTab } from "../redux/activeTabSlice";
+import IconType from "./IconType";
+import { toggleSideBar } from "../redux/showMenu";
 
 const Sidebar = () => {
   const [baseTodo, setBaseTodo] = useState([]);
-  const {
-    setActiveTab,
-    activeTab,
-    todoArray,
-    setCurrentPage,
-    setTodoArray,
-    showMenu,
-    setShowMenu,
-  } = useContext(DataContext);
+  const { todoArray, setCurrentPage, setTodoArray } = useContext(DataContext);
+
+  const activeTab = useSelector((state) => state.activeTab);
+  const isSideBarShown = useSelector((state) => state.sideBar);
+
+  const dispatch = useDispatch();
 
   const fetchData = async () => {
     const response = await api.get("/todolist");
@@ -62,24 +53,6 @@ const Sidebar = () => {
     }
   };
 
-  const iconType = (type) => {
-    if (type === "Personal") {
-      return <UserCircle size={20} />;
-    } else if (type === "Home") {
-      return <Home size={20} />;
-    } else if (type === "Study") {
-      return <BookOpenText size={20} />;
-    } else if (type === "Business") {
-      return <Briefcase size={20} />;
-    } else if (type === "All") {
-      return <MenuSquare size={20} />;
-    } else if (type === "Done") {
-      return <CheckCircle2 size={20} />;
-    } else {
-      return <Trash2 size={20} />;
-    }
-  };
-
   // filter by categories
   const renderByType = (type) => {
     if (type === "All") {
@@ -105,12 +78,13 @@ const Sidebar = () => {
   };
 
   const handleMenu = () => {
-    setShowMenu(!showMenu);
+    dispatch(toggleSideBar());
   };
+
   return (
     <div
-      className={`lg:w-[15%] md:w-[25%] min-h-screen lg:flex md:flex fixed sm:flex flex-col justify-between overflow-hidden top-0  bg-gray-50 z-10 transition-all duration-300 ${
-        showMenu ? "left-0" : "max-md:-left-full"
+      className={`lg:w-[15%] md:w-[25%] w-[50%] min-h-screen lg:flex md:flex fixed sm:flex flex-col justify-between overflow-hidden top-0  bg-gray-50 z-10 transition-all duration-300 ${
+        isSideBarShown ? "left-0" : "max-md:-left-full"
       }`}
     >
       <div>
@@ -119,7 +93,9 @@ const Sidebar = () => {
             onClick={handleMenu}
             size={30}
             strokeWidth={2}
-            className={`${showMenu ? "block" : "hidden"}`}
+            className={`${
+              isSideBarShown ? "block" : "hidden"
+            } cursor-pointer hover:scale-105`}
           />
           <p className="font-bold text-xl">KeepOnTrack.</p>
           <p className="capitalize text-sm text-gray-500">stay progressive</p>
@@ -135,11 +111,11 @@ const Sidebar = () => {
                 }`}
                 onClick={() => {
                   renderByType(menu);
-                  setActiveTab(menu);
-                  if (showMenu) setShowMenu(!showMenu);
+                  dispatch(setActiveTab(menu));
+                  if (isSideBarShown) handleMenu();
                 }}
               >
-                {iconType(menu)}
+                <IconType type={menu} />
                 {menu}
                 <span
                   className={` text-gray-400 ${
