@@ -3,17 +3,24 @@ import { motion } from "framer-motion";
 import { CircleSlash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCurrentData } from "../redux/currentTasks";
+import { fetchCurrentData, renderByType } from "../redux/currentTasks";
+
 const Card = () => {
-  const { renderByCategory, loading } = useSelector(
+  const { renderByCategory, loading, currentTasks } = useSelector(
     (state) => state.currentTasks
   );
-
+  const isChange = useSelector((state) => state.isChange);
+  const activeTab = useSelector((state) => state.activeTab);
   const dispatch = useDispatch();
 
-  const currentPage = useSelector((state) => state.currentPage);
-  const cardPerPage = 6;
+  useEffect(() => {
+    currentTasks;
+    dispatch(renderByType(activeTab));
+  }, [currentTasks]);
 
+  const currentPage = useSelector((state) => state.currentPage);
+
+  const cardPerPage = 6;
   const indexOfLastPost = currentPage * cardPerPage;
   const indexOfFirstPost = indexOfLastPost - cardPerPage;
   const currentTodoArray = renderByCategory.slice(
@@ -21,14 +28,10 @@ const Card = () => {
     indexOfLastPost
   );
 
-  useEffect(() => {
-    dispatch(fetchCurrentData());
-  }, [dispatch]);
-
   if (loading) {
-    return <h1>laoding</h1>;
+    return <h1>laoding .... loading</h1>;
   }
-  if (renderByCategory) {
+  if (renderByCategory.length > 0) {
     return (
       <section className="lg:w-[85%] md:w-[75%] w-full flex flex-col ms-auto lg:px-10 md:px-10 text-gray-600 body-font relative lg:mt-10 ">
         <Categories />

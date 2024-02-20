@@ -1,12 +1,11 @@
 import { CopyX } from "lucide-react";
 import { motion as m } from "framer-motion";
 
-import React, { useContext, useState } from "react";
-import DataContext from "../Context/Contextapi";
+import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFormState } from "../redux/formSlice";
-import { addData, renderByType } from "../redux/currentTasks";
+import { addData, fetchCurrentData, renderByType } from "../redux/currentTasks";
 import { setIsChange } from "../redux/isChange";
 
 const AddTaskForm = () => {
@@ -22,7 +21,6 @@ const AddTaskForm = () => {
 
   const [Characters, setCharacters] = useState(0);
   const activeTab = useSelector((state) => state.activeTab);
-
   const dispatch = useDispatch();
 
   const handleSubmitForm = (e) => {
@@ -44,6 +42,7 @@ const AddTaskForm = () => {
     const newData = { ...newTodo, id: new Date().getTime(), createdTime };
     setNewTodo(newData);
     dispatch(addData(newData));
+    dispatch(fetchCurrentData());
     dispatch(setIsChange());
   };
 

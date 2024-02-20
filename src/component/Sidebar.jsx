@@ -7,6 +7,7 @@ import IconType from "./IconType";
 import { toggleSideBar } from "../redux/showMenu";
 import { setCurrentPage } from "../redux/currentPage";
 import { renderByType } from "../redux/currentTasks";
+import { setIsChange } from "../redux/isChange";
 
 const Sidebar = () => {
   const { currentTasks, loading, error } = useSelector(
@@ -63,16 +64,16 @@ const Sidebar = () => {
     >
       <div>
         <div className="flex flex-col w-full px-5 py-4">
+          <p className="font-bold text-xl">KeepOnTrack.</p>
+          <p className="capitalize text-sm text-gray-500">stay progressive</p>
           <X
             onClick={handleMenu}
             size={30}
             strokeWidth={2}
             className={`${
-              isSideBarShown ? "block" : "hidden"
+              isSideBarShown ? "block mt-3" : "hidden"
             } cursor-pointer hover:scale-105`}
           />
-          <p className="font-bold text-xl">KeepOnTrack.</p>
-          <p className="capitalize text-sm text-gray-500">stay progressive</p>
         </div>
         <hr />
         <div className="flex flex-col w-full  p-5">
@@ -86,6 +87,7 @@ const Sidebar = () => {
                 onClick={() => {
                   dispatch(setActiveTab(menu));
                   dispatch(renderByType(menu));
+                  dispatch(setIsChange());
                   if (isSideBarShown) handleMenu();
                 }}
               >

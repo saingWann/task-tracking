@@ -40,6 +40,7 @@ const currentTasksSlice = createSlice ({
     reducers: {
         renderByType: (state,action) => {
             let filterData;
+            
             if (action.payload === "All") {
              
               filterData = state.currentTasks.filter(
@@ -60,6 +61,7 @@ const currentTasksSlice = createSlice ({
                   task.complete === false
                   ); 
             }
+            // console.log({...state,renderByCategory:filterData})
             return  {...state,renderByCategory:filterData}
           }
         },
