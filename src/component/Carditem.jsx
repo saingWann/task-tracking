@@ -4,17 +4,10 @@ import DataContext from "../Context/Contextapi";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { toggleEditState } from "../redux/formSlice";
+import { deleteData, moveToBin } from "../redux/currentTasks";
 
 const Carditem = ({ task, index }) => {
   const [showMore, setShowMore] = useState(false);
-  const {
-    deleteTodo,
-    moveToTrash,
-    setEdit,
-    setTaskToEdit,
-    setShowForm,
-    HandleComplete,
-  } = useContext(DataContext);
 
   const dispatch = useDispatch();
 
@@ -33,13 +26,6 @@ const Carditem = ({ task, index }) => {
         break;
     }
     return color;
-  };
-
-  const confirmDelete = (id, currentStat) => {
-    if (confirm("Are you sure to move the task to trash bin.")) {
-      moveToTrash(id);
-    }
-    return;
   };
 
   const formAnimation = {
@@ -135,9 +121,9 @@ const Carditem = ({ task, index }) => {
               <button
                 onClick={() => {
                   if (task.moveToTrash === true) {
-                    deleteTodo(task.id);
+                    dispatch(deleteData(task.id));
                   } else {
-                    confirmDelete(task.id, task.moveToTrash);
+                    dispatch(moveToBin(task.id, task.moveToTrash));
                   }
                 }}
               >

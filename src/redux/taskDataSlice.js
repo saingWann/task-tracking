@@ -9,31 +9,34 @@ const initialState = {
   error: null,
 };
 
-export const fetchData = createAsyncThunk('data/fetchData', async () => {
+export const fetchData = createAsyncThunk('tasks/fetchData', async () => {
   const response = await api.get(`/todolist`);
   return response.data;
 });
 
-export const addData = createAsyncThunk('data/addData', async (newItem) => {
+export const addData = createAsyncThunk('tasks/addData', async (newItem) => {
   const response = await api.post(`/todolist`, newItem);
   return response.data;
 });
 
-export const updateData = createAsyncThunk('data/updateData', async (updatedItem) => {
-  const response = await api.patch(`/todolist/${updatedItem.id}`, updatedItem);
-  return response.data;
+export const updateData = createAsyncThunk('tasks/updateData', async (id,currentState) => {
+  console.log(id,currentState)
+   const response = await api.patch(`/todoList/${id}`, { moveToTrash: !currentState });
+  return response.data
 });
 
-export const deleteData = createAsyncThunk('data/deleteData', async (id) => {
-  await api.delete(`/todolist`);
-  return id;
+export const deleteData = createAsyncThunk('tasks/deleteData', async (id) => {
+    if (confirm("You sure!This task will be remove permently!")) {
+      await api.delete(`/todolist/${id}`);
+    }
+    return;
 });
 
 const taskDataSlice = createSlice({
-  name: 'api',
+  name: 'tasks',
   initialState,
   reducers: {
-    // No additional reducers needed for CRUD operations
+
   },
   extraReducers: (builder) => {
     builder
@@ -62,6 +65,5 @@ const taskDataSlice = createSlice({
       });
   },
 });
-
 
 export default taskDataSlice.reducer;

@@ -4,8 +4,8 @@ const activeTabSlice = createSlice({
     name: 'activeTab',
     initialState: "All",
     reducers: {
-        setActiveTab : (state,actions) => {
-            return state = actions.payload
+        setActiveTab : (state,action) => {
+            return state = action.payload
         }
     }
 })

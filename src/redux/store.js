@@ -4,6 +4,8 @@ import FormStateReudcer from './formSlice'
 import ActiveTabReducer from './activeTabSlice'
 import SideBarReducer from './showMenu'
 import CurrentPageReducer from './currentPage'
+import currentTasksReducer from './currentTasks'
+import isChangeReducer from './isChange'
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +14,7 @@ export const store = configureStore({
         activeTab: ActiveTabReducer,
         sideBar: SideBarReducer,
         currentPage: CurrentPageReducer,
+        currentTasks: currentTasksReducer,
+        isChange: isChangeReducer,
     },
 })

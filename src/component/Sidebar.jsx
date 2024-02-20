@@ -1,79 +1,53 @@
 import React, { useContext, useEffect, useState } from "react";
 import { sidebarMenu } from "../constant";
 import { Copyright, X } from "lucide-react";
-import DataContext from "../Context/Contextapi";
-import { api } from "../Api";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/activeTabSlice";
 import IconType from "./IconType";
 import { toggleSideBar } from "../redux/showMenu";
+import { setCurrentPage } from "../redux/currentPage";
+import { renderByType } from "../redux/currentTasks";
 
 const Sidebar = () => {
-  const [baseTodo, setBaseTodo] = useState([]);
-  const { todoArray, setCurrentPage, setTodoArray } = useContext(DataContext);
-
+  const { currentTasks, loading, error } = useSelector(
+    (state) => state.currentTasks
+  );
   const activeTab = useSelector((state) => state.activeTab);
   const isSideBarShown = useSelector((state) => state.sideBar);
 
   const dispatch = useDispatch();
 
-  const fetchData = async () => {
-    const response = await api.get("/todolist");
-    setBaseTodo(response.data);
-  };
-
   useEffect(() => {
-    fetchData();
-    if (Math.ceil(todoArray.length / 6) === 1) {
-      setCurrentPage(1);
+    if (Math.ceil(currentTasks.length / 6) === 1) {
+      dispatch(setCurrentPage(1));
     }
-  }, [todoArray]);
+  }, [currentTasks]);
 
   const countByType = (type) => {
     // console.log(type);
     if (type === "Trash bin") {
-      const count = baseTodo.filter((task) => task.moveToTrash === true).length;
+      const count = currentTasks.filter(
+        (task) => task.moveToTrash === true
+      ).length;
       return count;
     } else if (type === "All") {
-      const count = baseTodo.filter(
+      const count = currentTasks.filter(
         (task) => task.moveToTrash === false && task.complete === false
       ).length;
       return count;
     } else if (type === "Done") {
-      const count = baseTodo.filter((task) => task.complete === true).length;
+      const count = currentTasks.filter(
+        (task) => task.complete === true
+      ).length;
       return count;
     } else {
-      const count = baseTodo.filter(
+      const count = currentTasks.filter(
         (task) =>
           task.type === type &&
           task.moveToTrash === false &&
           task.complete === false
       ).length;
       return count;
-    }
-  };
-
-  // filter by categories
-  const renderByType = (type) => {
-    if (type === "All") {
-      setTodoArray(
-        baseTodo.filter(
-          (task) => task.moveToTrash !== true && task.complete === false
-        )
-      );
-    } else if (type === "Trash bin") {
-      setTodoArray(baseTodo.filter((task) => task.moveToTrash === true));
-    } else if (type === "Done") {
-      setTodoArray(baseTodo.filter((task) => task.complete === true));
-    } else {
-      const currentTodoArray = [...baseTodo];
-      const filteredArray = currentTodoArray.filter(
-        (task) =>
-          task.type === type &&
-          task.moveToTrash === false &&
-          task.complete === false
-      );
-      setTodoArray(filteredArray);
     }
   };
 
@@ -110,8 +84,8 @@ const Sidebar = () => {
                   activeTab === menu ? "bg-black text-white" : ""
                 }`}
                 onClick={() => {
-                  renderByType(menu);
                   dispatch(setActiveTab(menu));
+                  dispatch(renderByType(menu));
                   if (isSideBarShown) handleMenu();
                 }}
               >

@@ -6,6 +6,8 @@ import DataContext from "../Context/Contextapi";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFormState } from "../redux/formSlice";
+import { addData, renderByType } from "../redux/currentTasks";
+import { setIsChange } from "../redux/isChange";
 
 const AddTaskForm = () => {
   const [newTodo, setNewTodo] = useState({
@@ -19,10 +21,7 @@ const AddTaskForm = () => {
   });
 
   const [Characters, setCharacters] = useState(0);
-
-  const { addNewTodoToServer } = useContext(DataContext);
-
-  const { isShown } = useSelector((state) => state.formState);
+  const activeTab = useSelector((state) => state.activeTab);
 
   const dispatch = useDispatch();
 
@@ -44,7 +43,8 @@ const AddTaskForm = () => {
     };
     const newData = { ...newTodo, id: new Date().getTime(), createdTime };
     setNewTodo(newData);
-    addNewTodoToServer(newData);
+    dispatch(addData(newData));
+    dispatch(setIsChange());
   };
 
   const checkCharacters = (e) => {

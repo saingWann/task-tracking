@@ -1,11 +1,11 @@
-import { useContext } from "react";
-import DataContext from "../Context/Contextapi";
 import Pagination from "./Pagination";
 import IconType from "./IconType";
 import { useSelector } from "react-redux";
 
 const Categories = () => {
-  const { todoArray } = useContext(DataContext);
+  const { currentTasks, renderByCategory } = useSelector(
+    (state) => state.currentTasks
+  );
 
   const activeTab = useSelector((state) => state.activeTab);
   return (
@@ -17,7 +17,7 @@ const Categories = () => {
             {activeTab}
           </p>
         </div>
-        <Pagination cardsPerPage={6} totalCards={todoArray.length} />
+        <Pagination cardsPerPage={6} totalCards={renderByCategory.length} />
       </div>
     </div>
   );
