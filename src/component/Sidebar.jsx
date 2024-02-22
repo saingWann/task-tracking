@@ -10,15 +10,14 @@ import { renderByType } from "../redux/currentTasks";
 import { setIsChange } from "../redux/isChange";
 
 const Sidebar = () => {
-  const { currentTasks, loading, error } = useSelector(
-    (state) => state.currentTasks
-  );
+  const { currentTasks } = useSelector((state) => state.currentTasks);
   const activeTab = useSelector((state) => state.activeTab);
   const isSideBarShown = useSelector((state) => state.sideBar);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // console.log(currentTasks);
     if (Math.ceil(currentTasks.length / 6) === 1) {
       dispatch(setCurrentPage(1));
     }

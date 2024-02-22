@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { CircleSlash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCurrentData, renderByType } from "../redux/currentTasks";
+import { renderByType } from "../redux/currentTasks";
 
 const Card = () => {
   const { renderByCategory, loading, currentTasks } = useSelector(
@@ -12,11 +12,6 @@ const Card = () => {
   const isChange = useSelector((state) => state.isChange);
   const activeTab = useSelector((state) => state.activeTab);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    currentTasks;
-    dispatch(renderByType(activeTab));
-  }, [currentTasks]);
 
   const currentPage = useSelector((state) => state.currentPage);
 
@@ -28,10 +23,14 @@ const Card = () => {
     indexOfLastPost
   );
 
+  useEffect(() => {
+    dispatch(renderByType(activeTab));
+  }, [currentTasks, isChange, currentPage]);
+
   if (loading) {
     return <h1>laoding .... loading</h1>;
   }
-  if (renderByCategory.length > 0) {
+  if (renderByCategory) {
     return (
       <section className="lg:w-[85%] md:w-[75%] w-full flex flex-col ms-auto lg:px-10 md:px-10 text-gray-600 body-font relative lg:mt-10 ">
         <Categories />
@@ -39,6 +38,7 @@ const Card = () => {
           {renderByCategory.length === 0 ? (
             <div className="w-full h-64 flex flex-col items-center justify-center ">
               <CircleSlash2 size={100} className="opacity-50" />
+
               <h1 className="text-center mt-10 text-3xl">
                 There is no task in this category!
               </h1>

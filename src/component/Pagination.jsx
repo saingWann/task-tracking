@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentPage } from "../redux/currentPage";
 
 const Pagination = ({ cardsPerPage, totalCards }) => {
   const currentPage = useSelector((state) => state.currentPage);
+  const activeTab = useSelector((state) => state.activeTab);
   const dispatch = useDispatch();
 
   const pageNumber = [];
@@ -11,8 +12,9 @@ const Pagination = ({ cardsPerPage, totalCards }) => {
   for (let i = 1; i <= Math.ceil(totalCards / cardsPerPage); i++) {
     pageNumber.push(i);
   }
-
-  // if(pageNumber.length ===1) setCurrentPage(1)
+  useEffect(() => {
+    if (pageNumber.length === 1) dispatch(setCurrentPage(1));
+  }, [activeTab]);
 
   return (
     <div className="flex gap-5 w-fit">

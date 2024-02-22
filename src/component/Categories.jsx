@@ -3,9 +3,7 @@ import IconType from "./IconType";
 import { useSelector } from "react-redux";
 
 const Categories = () => {
-  const { currentTasks, renderByCategory } = useSelector(
-    (state) => state.currentTasks
-  );
+  const { renderByCategory } = useSelector((state) => state.currentTasks);
 
   const activeTab = useSelector((state) => state.activeTab);
   return (

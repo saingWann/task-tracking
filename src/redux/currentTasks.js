@@ -11,14 +11,23 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
     return response.data;
   });
   
-  export const moveToBin = createAsyncThunk('currentTasks/moveToBin', async (id,currentState) => {
-    console.log(id,currentState.payload)
-     const response = await api.patch(`/todoList/${id}`, { moveToTrash: !currentState.payload.moveToTrash });
+  export const moveToBin = createAsyncThunk('currentTasks/moveToBin', async (action) => {
+    // console.log(action.id)
+     const response = await api.patch(`/todoList/${action.id}`, { moveToTrash: !action.moveToTrash });
+    
+    return response.data
+  });
+
+  export const handleComplete = createAsyncThunk('currentTasks/handleComplete', async (action) => {
+    // console.log(action)
+     const response = await api.patch(`/todoList/${action.id}`, { complete: !action.complete });
+    
     return response.data
   });
 
   export const updateData = createAsyncThunk('currentTasks/updateData', async (id,currentState) => {
     console.log(id,currentState)
+    alert("Task has been moved to trash bin.")
      const response = await api.patch(`/todoList/${id}`, currentState);
     return response.data
   });
@@ -27,10 +36,9 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
 
 
   export const deleteData = createAsyncThunk('currentTasks/deleteData', async (id) => {
-      if (confirm("You sure!This task will be remove permently!")) {
+     
        const response = await api.delete(`/todolist/${id}`);
-      }
-      return response.data
+       return response.data
   });
 
   
@@ -89,6 +97,14 @@ const currentTasksSlice = createSlice ({
                     console.log(state.currentTasks[index].moveToTrash)
                     console.log(action.payload)
                   state.currentTasks[index].moveToTrash = action.payload.moveToTrash;
+                }
+              })
+              .addCase(handleComplete.fulfilled, (state, action) => {
+                const index = state.currentTasks.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    console.log(state.currentTasks[index].complete)
+                    console.log(action.payload)
+                  state.currentTasks[index].complete = action.payload.complete;
                 }
               })
               .addCase(deleteData.fulfilled, (state, action) => {

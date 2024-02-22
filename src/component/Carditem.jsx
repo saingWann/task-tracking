@@ -4,7 +4,12 @@ import DataContext from "../Context/Contextapi";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { toggleEditState } from "../redux/formSlice";
-import { deleteData, moveToBin } from "../redux/currentTasks";
+import {
+  deleteData,
+  fetchCurrentData,
+  handleComplete,
+  moveToBin,
+} from "../redux/currentTasks";
 
 const Carditem = ({ task, index }) => {
   const [showMore, setShowMore] = useState(false);
@@ -45,6 +50,30 @@ const Carditem = ({ task, index }) => {
     },
   };
 
+  const handleDelete = (task) => {
+    if (task.moveToTrash === true) {
+      if (confirm("You sure!This task will be remove permently!")) {
+        dispatch(deleteData(task.id));
+        dispatch(fetchCurrentData());
+      }
+    } else {
+      if (confirm("You sure!This task will be moved to trash bin!")) {
+        dispatch(fetchCurrentData());
+        dispatch(moveToBin({ id: task.id, moveToTrash: task.moveToTrash }));
+      }
+    }
+  };
+
+  const HandleComplete = (task) => {
+    dispatch(fetchCurrentData());
+    if (!task.complete) {
+      alert(`Task has been move to "Done"`);
+      dispatch(handleComplete({ id: task.id, complete: task.complete }));
+    } else {
+      alert(`Task has been move back to ${task.type}`);
+      dispatch(handleComplete({ id: task.id, complete: task.complete }));
+    }
+  };
   return (
     <motion.div
       variants={formAnimation}
@@ -88,7 +117,7 @@ const Carditem = ({ task, index }) => {
             <span className="flex gap-4">
               <button
                 className={` ${task.moveToTrash ? "pointer-events-none" : ""}`}
-                onClick={() => HandleComplete(task.id, task.complete)}
+                onClick={() => HandleComplete(task)}
               >
                 <CheckSquare
                   className={`hover:opacity-50 active:scale-95  ${
@@ -120,11 +149,7 @@ const Carditem = ({ task, index }) => {
 
               <button
                 onClick={() => {
-                  if (task.moveToTrash === true) {
-                    dispatch(deleteData(task.id));
-                  } else {
-                    dispatch(moveToBin(task.id, task.moveToTrash));
-                  }
+                  handleDelete(task);
                 }}
               >
                 <Trash2Icon
