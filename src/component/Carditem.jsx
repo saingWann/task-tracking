@@ -1,15 +1,14 @@
 import React, { useContext, useState } from "react";
 import { CheckSquare, Edit2Icon, Trash2Icon } from "lucide-react";
-import DataContext from "../Context/Contextapi";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { toggleEditState } from "../redux/formSlice";
+import { toggleEditState } from "../features/formSlice";
 import {
   deleteData,
   fetchCurrentData,
   handleComplete,
   moveToBin,
-} from "../redux/currentTasks";
+} from "../features/currentTasks";
 
 const Carditem = ({ task, index }) => {
   const [showMore, setShowMore] = useState(false);

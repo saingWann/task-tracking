@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { CircleSlash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { renderByType } from "../redux/currentTasks";
+import { renderByType } from "../features/currentTasks";
 
 const Card = () => {
   const { renderByCategory, loading, currentTasks } = useSelector(

@@ -2,14 +2,12 @@ import { CopyX } from "lucide-react";
 import { motion as m } from "framer-motion";
 
 import React, { useContext, useState } from "react";
-import DataContext from "../Context/Contextapi";
 
 import { useDispatch } from "react-redux";
-import { toggleEditState } from "../redux/formSlice";
+import { toggleEditState } from "../features/formSlice";
 
 const EditForm = () => {
   const [Characters, setCharacters] = useState(0);
-  const { editCardItem, taskToEdit, setTaskToEdit } = useContext(DataContext);
   const dispatch = useDispatch();
 
   const checkCharacters = (e) => {

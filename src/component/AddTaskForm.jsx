@@ -4,9 +4,13 @@ import { motion as m } from "framer-motion";
 import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFormState } from "../redux/formSlice";
-import { addData, fetchCurrentData, renderByType } from "../redux/currentTasks";
-import { setIsChange } from "../redux/isChange";
+import { toggleFormState } from "../features/formSlice";
+import {
+  addData,
+  fetchCurrentData,
+  renderByType,
+} from "../features/currentTasks";
+import { setIsChange } from "../features/isChange";
 
 const AddTaskForm = () => {
   const [newTodo, setNewTodo] = useState({

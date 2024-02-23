@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentPage } from "../redux/currentPage";
+import { setCurrentPage } from "../features/currentPage";
 
 const Pagination = ({ cardsPerPage, totalCards }) => {
   const currentPage = useSelector((state) => state.currentPage);

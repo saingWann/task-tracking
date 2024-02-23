@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { api } from "./Api";
-import DataContext from "./Context/Contextapi";
 import { Headbar, Card, Sidebar, FormGroup } from "./component/index";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCurrentData, renderByType } from "./redux/currentTasks";
+import { useDispatch } from "react-redux";
+import { fetchCurrentData } from "./features/currentTasks";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./Pages/LoginPage";
+import TasksShowCasePage from "./Pages/TasksShowCasePage";
+import SignInPage from "./Pages/SignInPage";
+import HomePage from "./Pages/HomePage";
 
 const App = () => {
-  const [taskToEdit, setTaskToEdit] = useState({});
+  // const [taskToEdit, setTaskToEdit] = useState({});
 
   const dispatch = useDispatch();
 
@@ -17,30 +20,14 @@ const App = () => {
   }, []);
 
   return (
-    <DataContext.Provider
-      value={{
-        taskToEdit,
-        setTaskToEdit,
-      }}
-    >
-      <main>
-        <header>
-          <Headbar />
-        </header>
-
-        <aside>
-          <Sidebar />
-        </aside>
-
-        <section>
-          <FormGroup />
-        </section>
-
-        <div>
-          <Card />
-        </div>
-      </main>
-    </DataContext.Provider>
+    <main>
+      <Routes>
+        <Route path="/allTasks" element={<TasksShowCasePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </main>
   );
 };
 

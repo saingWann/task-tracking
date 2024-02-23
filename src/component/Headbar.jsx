@@ -1,8 +1,8 @@
 <AlignLeft />;
 import { Plus, Search, AlignLeft } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { toggleFormState } from "../redux/formSlice";
-import { toggleSideBar } from "../redux/showMenu";
+import { toggleFormState } from "../features/formSlice";
+import { toggleSideBar } from "../features/showMenu";
 
 const Headbar = () => {
   const dispatch = useDispatch();

@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { sidebarMenu } from "../constant";
 import { Copyright, X } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveTab } from "../redux/activeTabSlice";
+import { setActiveTab } from "../features/activeTabSlice";
 import IconType from "./IconType";
-import { toggleSideBar } from "../redux/showMenu";
-import { setCurrentPage } from "../redux/currentPage";
-import { renderByType } from "../redux/currentTasks";
-import { setIsChange } from "../redux/isChange";
+import { toggleSideBar } from "../features/showMenu";
+import { setCurrentPage } from "../features/currentPage";
+import { renderByType } from "../features/currentTasks";
+import { setIsChange } from "../features/isChange";
 
 const Sidebar = () => {
   const { currentTasks } = useSelector((state) => state.currentTasks);

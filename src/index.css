@@ -11,6 +11,8 @@
       margin: 0 auto;
     }
 
+ 
+
 }
 
 
@@ -42,4 +44,6 @@
     .padding-b {
       @apply sm:pb-24 pb-12;
     }
+
+
 }  
