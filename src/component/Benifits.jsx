@@ -2,7 +2,7 @@ import React from "react";
 
 const Benifits = () => {
   return (
-    <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
+    <section className="py-10 bg-gray-100 sm:py-16 lg:py-24">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col lg:gap-20 gap-10">
         <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-x-12 xl:gap-x-24 gap-y-12">
           <div className="relative lg:mb-12">
@@ -19,7 +19,10 @@ const Benifits = () => {
               />
             </div>
             <div className="absolute left-0 pr-12 bottom-8 xl:bottom-20">
-              <div className="max-w-xs bg-purple-700 rounded-lg sm:max-w-md xl:max-w-md">
+              <div
+                className="max-w-xs bg-purple-700/30 rounded-lg sm:max-w-md xl:max-w-md
+              bg-clip-padding backdrop-filter backdrop-blur-lg"
+              >
                 <div className="px-3 py-4 sm:px-5 sm:py-8">
                   <div className="flex items-start">
                     <p className="text-3xl sm:text-4xl">👋</p>
@@ -73,7 +76,10 @@ const Benifits = () => {
               />
             </div>
             <div className="absolute right-0 pl-12 bottom-8 xl:bottom-20">
-              <div className="max-w-xs bg-blue-600 rounded-lg sm:max-w-md xl:max-w-md">
+              <div
+                className="max-w-xs bg-purple-700/30 rounded-lg sm:max-w-md xl:max-w-md
+              bg-clip-padding backdrop-filter backdrop-blur-lg"
+              >
                 <div className="px-3 py-4 sm:px-5 sm:py-8">
                   <div className="flex items-start">
                     <p className="text-3xl sm:text-4xl">👋</p>
@@ -106,7 +112,10 @@ const Benifits = () => {
               />
             </div>
             <div className="absolute left-0 pr-12 bottom-8 xl:bottom-20">
-              <div className="max-w-xs bg-blue-600 rounded-lg sm:max-w-md xl:max-w-md">
+              <div
+                className="max-w-xs bg-purple-700/30 rounded-lg sm:max-w-md xl:max-w-md
+              bg-clip-padding backdrop-filter backdrop-blur-lg"
+              >
                 <div className="px-3 py-4 sm:px-5 sm:py-8">
                   <div className="flex items-start">
                     <p className="text-3xl sm:text-4xl">👋</p>

@@ -34,7 +34,7 @@ const Card = () => {
     return (
       <section className="lg:w-[85%] md:w-[75%] w-full flex flex-col ms-auto lg:px-10 md:px-10 text-gray-600 body-font relative lg:mt-10 ">
         <Categories />
-        <motion.div className="flex lg:flex-row flex-wrap flex-col lg:order-1 -order-1">
+        <motion.div className="grid grid-cols-1  lg:grid-cols-3 lg:order-1 -order-1">
           {renderByCategory.length === 0 ? (
             <div className="w-full h-64 flex flex-col items-center justify-center ">
               <CircleSlash2 size={100} className="opacity-50" />

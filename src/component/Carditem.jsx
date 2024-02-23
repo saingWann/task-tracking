@@ -82,7 +82,7 @@ const Carditem = ({ task, index }) => {
       onMouseLeave={() => {
         setShowMore(false);
       }}
-      className={`lg:w-1/2 xl:w-1/3 w-full p-5 `}
+      className={`w-full p-5 `}
     >
       <span
         className={`p-3 text-white rounded-t-lg font-bold block w-full ${
