@@ -37,7 +37,7 @@ const Sidebar = () => {
       return count;
     } else if (type === "Done") {
       const count = currentTasks.filter(
-        (task) => task.complete === true
+        (task) => task.complete === true && task.moveToTrash === false
       ).length;
       return count;
     } else {

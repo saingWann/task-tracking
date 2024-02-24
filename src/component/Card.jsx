@@ -1,5 +1,5 @@
 import { Carditem, Categories } from "./index";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { CircleSlash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";

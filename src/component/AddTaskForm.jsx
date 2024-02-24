@@ -46,7 +46,6 @@ const AddTaskForm = () => {
     const newData = { ...newTodo, id: new Date().getTime(), createdTime };
     setNewTodo(newData);
     dispatch(addData(newData));
-    dispatch(fetchCurrentData());
     dispatch(setIsChange());
   };
 

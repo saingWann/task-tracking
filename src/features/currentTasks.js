@@ -33,8 +33,6 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
   });
   
   
-
-
   export const deleteData = createAsyncThunk('currentTasks/deleteData', async (id) => {
      
        const response = await api.delete(`/todolist/${id}`);
@@ -52,7 +50,7 @@ const currentTasksSlice = createSlice ({
             if (action.payload === "All") {
              
               filterData = state.currentTasks.filter(
-                  (task) => task.moveToTrash !== true && task.complete === false
+                  (task) => task.moveToTrash === false && task.complete === false || task.complete === true
                 )
         
             } else if (action.payload === "Trash bin") {
@@ -60,7 +58,8 @@ const currentTasksSlice = createSlice ({
                 (task) => task.moveToTrash === true
               )
             } else if (action.payload === "Done") {
-              filterData = state.currentTasks.filter((task) => task.complete === true);
+              filterData = state.currentTasks.filter((task) => task.complete === true && task.moveToTrash === false );
+              console.log(filterData)
             } else {
               filterData = state.currentTasks.filter(
                 (task) =>
@@ -69,7 +68,7 @@ const currentTasksSlice = createSlice ({
                   task.complete === false
                   ); 
             }
-            // console.log({...state,renderByCategory:filterData})
+            console.log({...state,renderByCategory:filterData})
             return  {...state,renderByCategory:filterData}
           }
         },

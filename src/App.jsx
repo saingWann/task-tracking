@@ -14,10 +14,8 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  // const allTask = useSelector(allTasks);
   useEffect(() => {
     dispatch(fetchCurrentData());
-    // dispatch(renderByType(activeTab));
   }, []);
 
   return (

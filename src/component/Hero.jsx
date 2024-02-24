@@ -1,4 +1,3 @@
-import React from "react";
 import { heroImg1 } from "../assets/constant";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +6,7 @@ const Hero = () => {
   const handleNav = () => {
     nav("/sign-in");
   };
+
   return (
     <>
       <section className="pt-10  sm:pt-16 lg:pt-24">

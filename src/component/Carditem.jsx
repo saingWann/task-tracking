@@ -32,7 +32,7 @@ const Carditem = ({ task, index }) => {
     return color;
   };
 
-  const formAnimation = {
+  const cardAnimation = {
     hidden: {
       opacity: 0,
       y: -100,
@@ -53,18 +53,18 @@ const Carditem = ({ task, index }) => {
     if (task.moveToTrash === true) {
       if (confirm("You sure!This task will be remove permently!")) {
         dispatch(deleteData(task.id));
-        dispatch(fetchCurrentData());
+        // dispatch(fetchCurrentData());
       }
     } else {
       if (confirm("You sure!This task will be moved to trash bin!")) {
-        dispatch(fetchCurrentData());
+        // dispatch(fetchCurrentData());
         dispatch(moveToBin({ id: task.id, moveToTrash: task.moveToTrash }));
       }
     }
   };
 
   const HandleComplete = (task) => {
-    dispatch(fetchCurrentData());
+    // dispatch(fetchCurrentData());s
     if (!task.complete) {
       alert(`Task has been move to "Done"`);
       dispatch(handleComplete({ id: task.id, complete: task.complete }));
@@ -75,9 +75,10 @@ const Carditem = ({ task, index }) => {
   };
   return (
     <motion.div
-      variants={formAnimation}
+      variants={cardAnimation}
       initial="hidden"
       animate="show"
+      exit="hidden"
       layout
       onMouseLeave={() => {
         setShowMore(false);
