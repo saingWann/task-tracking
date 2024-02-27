@@ -9,7 +9,7 @@ const NavBar = () => {
   return (
     <>
       <header className="bg-black inset-x-0 top-0 z-10 w-full">
-        <div className="px-4 mx-auto sm:px-6 lg:px-8">
+        <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="flex items-center justify-between h-16 lg:h-20">
             <div className="pr-10">
               <a href="#" className="text-white font-bold text-xl">
