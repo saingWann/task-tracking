@@ -1,5 +1,7 @@
 import { heroImg1 } from "../assets/constant";
 import { useNavigate } from "react-router-dom";
+import TextInput from "./input/TextInput";
+import { Formik } from "formik";
 
 const Hero = () => {
   const nav = useNavigate();
@@ -28,6 +30,9 @@ const Hero = () => {
             >
               Sign up now for free
             </button>
+            {/* <Formik>
+              <TextInput name="firstName" id="firstName" label="first Name" />
+            </Formik> */}
           </div>
         </div>
         <div className="container mx-auto 2xl:px-12 shadow-lg">
