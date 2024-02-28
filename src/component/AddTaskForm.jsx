@@ -5,11 +5,7 @@ import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFormState } from "../features/formSlice";
-import {
-  addData,
-  fetchCurrentData,
-  renderByType,
-} from "../features/currentTasks";
+import { addData } from "../features/currentTasks";
 import { setIsChange } from "../features/isChange";
 
 const AddTaskForm = () => {
@@ -24,7 +20,6 @@ const AddTaskForm = () => {
   });
 
   const [Characters, setCharacters] = useState(0);
-  const activeTab = useSelector((state) => state.activeTab);
   const dispatch = useDispatch();
 
   const handleSubmitForm = (e) => {
