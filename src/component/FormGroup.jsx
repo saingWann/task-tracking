@@ -1,7 +1,8 @@
 import EditForm from "./EditForm";
-import AddTaskForm from "./AddTaskForm";
 import { AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
+import AddTaskFormik from "./AddTaskFormik";
+import EditFormik from "./EditFormik";
 
 const FormGroup = () => {
   const { isShown, isEdit } = useSelector((state) => state.formState);
@@ -9,14 +10,14 @@ const FormGroup = () => {
   if (isEdit && isShown) {
     return (
       <AnimatePresence>
-        <EditForm />
+        <EditFormik />
       </AnimatePresence>
     );
   } else if (isShown) {
     // only in the state of showForm is true
     return (
       <AnimatePresence>
-        <AddTaskForm />
+        <AddTaskFormik />
       </AnimatePresence>
     );
   }

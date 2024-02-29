@@ -1,5 +1,4 @@
 // components/index.js
-export { default as AddTaskForm } from "./AddTaskForm";
 export { default as Card } from "./Card";
 export { default as Carditem } from "./Carditem";
 export { default as Categories } from "./Categories";

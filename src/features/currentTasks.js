@@ -25,10 +25,10 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
     return response.data
   });
 
-  export const updateData = createAsyncThunk('currentTasks/updateData', async (id,currentState) => {
-    console.log(id,currentState)
-    alert("Task has been moved to trash bin.")
-     const response = await api.patch(`/todoList/${id}`, currentState);
+  
+  export const editData = createAsyncThunk('currentTasks/editData', async (action) => {
+    console.log(action)
+     const response = await api.patch(`/todoList/${action.id}`, {...action});
     return response.data
   });
   
@@ -50,7 +50,7 @@ const currentTasksSlice = createSlice ({
             if (action.payload === "All") {
              
               filterData = state.currentTasks.filter(
-                  (task) => task.moveToTrash === false && task.complete === false || task.complete === true
+                  (task) => task.moveToTrash === false && task.complete === false || task.complete === false
                 )
         
             } else if (action.payload === "Trash bin") {
@@ -68,7 +68,7 @@ const currentTasksSlice = createSlice ({
                   task.complete === false
                   ); 
             }
-            console.log({...state,renderByCategory:filterData})
+            // console.log({...state,renderByCategory:filterData})
             return  {...state,renderByCategory:filterData}
           }
         },
@@ -96,6 +96,15 @@ const currentTasksSlice = createSlice ({
                     console.log(state.currentTasks[index].moveToTrash)
                     console.log(action.payload)
                   state.currentTasks[index].moveToTrash = action.payload.moveToTrash;
+                }
+              })
+              .addCase(editData.fulfilled, (state, action) => {
+                console.log('first')
+                console.log(action.payload)
+                const index = state.currentTasks.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                  
+                  state.currentTasks[index] = action.payload
                 }
               })
               .addCase(handleComplete.fulfilled, (state, action) => {

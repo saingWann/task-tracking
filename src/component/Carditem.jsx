@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 import { toggleEditState } from "../features/formSlice";
 import {
   deleteData,
-  fetchCurrentData,
   handleComplete,
   moveToBin,
 } from "../features/currentTasks";
+import { setTaskToEdit } from "../features/taskToEdit";
 
 const Carditem = ({ task, index }) => {
   const [showMore, setShowMore] = useState(false);
@@ -73,6 +73,12 @@ const Carditem = ({ task, index }) => {
       dispatch(handleComplete({ id: task.id, complete: task.complete }));
     }
   };
+
+  const handleEdit = (task) => {
+    // console.log(task);
+    dispatch(setTaskToEdit(task));
+    dispatch(toggleEditState());
+  };
   return (
     <motion.div
       variants={cardAnimation}
@@ -135,8 +141,7 @@ const Carditem = ({ task, index }) => {
               >
                 <Edit2Icon
                   onClick={() => {
-                    dispatch(toggleEditState());
-                    setTaskToEdit(task);
+                    handleEdit(task);
                   }}
                   className={`hover:opacity-50 active:scale-95 ${
                     !task.complete && !task.moveToTrash
