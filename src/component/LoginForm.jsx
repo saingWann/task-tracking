@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Form, Formik } from "formik";
+import TextInput from "./input/TextInput";
+import * as Yup from "yup";
 
 const LoginForm = () => {
   const nav = useNavigate();
@@ -38,55 +41,52 @@ const LoginForm = () => {
               <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
                 Log in
               </h2>
+              <Formik
+                initialValues={{
+                  email: "",
+                  password: "",
+                }}
+                validationSchema={Yup.object({
+                  email: Yup.string()
+                    .email("Invalid email address")
+                    .required("Required"),
+                  password: Yup.string()
+                    .min(8, "Password must be at least 8 characters")
+                    .matches(
+                      /[0-9]/,
+                      "Password must contain at least one number"
+                    )
+                    .required("Password is required"),
+                })}
+              >
+                <Form action="#" method="POST" className="mt-8 ">
+                  <div className="space-y-5">
+                    <TextInput
+                      type="email"
+                      name="email"
+                      id="email"
+                      label="Email"
+                      placeholder="Enter email to get started"
+                    />
 
-              <form action="#" method="POST" className="mt-8 ">
-                <div className="space-y-5">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="text-base font-medium text-gray-900"
-                    >
-                      Email address
-                    </label>
-                    <div className="mt-2.5">
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter email to get started"
-                        className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-purple-600 focus:bg-white caret-purple-600"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <label
-                        htmlFor="password"
-                        className="text-base font-medium text-gray-900"
+                    <TextInput
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="Enter your password"
+                      label="Password"
+                    />
+                    <div>
+                      <button
+                        type="submit"
+                        className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-purple-600 border border-transparent rounded-md focus:outline-none hover:bg-purple-700 focus:bg-purple-700"
                       >
-                        Password
-                      </label>
-                    </div>
-                    <div className="mt-2.5">
-                      <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-purple-600 focus:bg-white caret-purple-600"
-                      />
+                        Log in
+                      </button>
                     </div>
                   </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-purple-600 border border-transparent rounded-md focus:outline-none hover:bg-purple-700 focus:bg-purple-700"
-                    >
-                      Log in
-                    </button>
-                  </div>
-                </div>
-              </form>
+                </Form>
+              </Formik>
 
               <p className="mt-10 flex text-base text-gray-600">
                 Don’t have an account?

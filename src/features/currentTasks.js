@@ -2,25 +2,26 @@ import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import { api } from '../Api';
 
 export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async () => {
-    const response = await api.get(`/todolist`);
+    const response = await api.get(`/allTasks`);
+    // console.log(response.data)
     return response.data;
   });
 
   export const addData = createAsyncThunk('currentTasks/addData', async (newItem) => {
-    const response = await api.post(`/todolist`, newItem);
+    const response = await api.post(`/allTasks`, newItem);
     return response.data;
   });
   
   export const moveToBin = createAsyncThunk('currentTasks/moveToBin', async (action) => {
     // console.log(action.id)
-     const response = await api.patch(`/todoList/${action.id}`, { moveToTrash: !action.moveToTrash });
+     const response = await api.put(`/allTasks/${action.id}`, { moveToTrash: !action.moveToTrash });
     
     return response.data
   });
 
   export const handleComplete = createAsyncThunk('currentTasks/handleComplete', async (action) => {
-    // console.log(action)
-     const response = await api.patch(`/todoList/${action.id}`, { complete: !action.complete });
+    console.log(action.taskToUpdate)
+     const response = await api.put(`/allTasks/${action.id}`, { ...action.taskToUpdate });
     
     return response.data
   });
@@ -28,14 +29,14 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
   
   export const editData = createAsyncThunk('currentTasks/editData', async (action) => {
     console.log(action)
-     const response = await api.patch(`/todoList/${action.id}`, {...action});
+     const response = await api.put(`/allTasks/${action.id}`, {...action});
     return response.data
   });
   
   
   export const deleteData = createAsyncThunk('currentTasks/deleteData', async (id) => {
      
-       const response = await api.delete(`/todolist/${id}`);
+       const response = await api.delete(`/allTasks/${id}`);
        return response.data
   });
 
@@ -80,8 +81,8 @@ const currentTasksSlice = createSlice ({
               })
               .addCase(fetchCurrentData.fulfilled, (state, action) => {
                 state.loading = false;
-                state.currentTasks = action.payload;
-                state.renderByCategory = action.payload
+                state.currentTasks = action.payload.filter((todo) => Object.keys(todo.createdTime).length !== 0);
+                state.renderByCategory =  action.payload.filter((todo) => Object.keys(todo.createdTime).length !== 0)
               })
               .addCase(fetchCurrentData.rejected, (state, action) => {
                 state.loading = false;

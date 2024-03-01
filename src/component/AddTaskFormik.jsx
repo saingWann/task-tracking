@@ -33,7 +33,7 @@ const AddTaskFormik = () => {
     };
     const newData = {
       ...value,
-      id: new Date().getTime(),
+      // id: new Date().getTime(),
       createdTime,
       complete: false,
       moveToTrash: false,
@@ -41,7 +41,7 @@ const AddTaskFormik = () => {
 
     dispatch(addData(newData));
     dispatch(setIsChange());
-    console.log(newData);
+    // console.log(newData);
   };
 
   // animation stuff

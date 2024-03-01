@@ -11,6 +11,7 @@ import {
 import { setTaskToEdit } from "../features/taskToEdit";
 
 const Carditem = ({ task, index }) => {
+  // console.log(task.id);
   const [showMore, setShowMore] = useState(false);
 
   const dispatch = useDispatch();
@@ -58,19 +59,35 @@ const Carditem = ({ task, index }) => {
     } else {
       if (confirm("You sure!This task will be moved to trash bin!")) {
         // dispatch(fetchCurrentData());
-        dispatch(moveToBin({ id: task.id, moveToTrash: task.moveToTrash }));
+        dispatch(
+          moveToBin({
+            id: task.id,
+            taskToUpdate: { ...task, moveToTrash: true },
+          })
+        );
       }
     }
   };
 
   const HandleComplete = (task) => {
     // dispatch(fetchCurrentData());s
+    console.log(task);
     if (!task.complete) {
       alert(`Task has been move to "Done"`);
-      dispatch(handleComplete({ id: task.id, complete: task.complete }));
+      dispatch(
+        handleComplete({
+          id: task.id,
+          taskToUpdate: { ...task, complete: true },
+        })
+      );
     } else {
       alert(`Task has been move back to ${task.type}`);
-      dispatch(handleComplete({ id: task.id, complete: task.complete }));
+      dispatch(
+        handleComplete({
+          id: task.id,
+          taskToUpdate: { ...task, complete: false },
+        })
+      );
     }
   };
 

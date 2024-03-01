@@ -4,7 +4,7 @@ import { Twitter, Instagram, Github, Facebook } from "lucide-react";
 const Footer = () => {
   return (
     <>
-      <section className="py-10 bg-purple-900 ">
+      <section className="py-10 bg-gray-900 ">
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="sm:flex sm:items-center sm:justify-start sm:space-x-8">
