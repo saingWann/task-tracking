@@ -19,10 +19,10 @@ const NavBar = () => {
 
             <div className="lg:flex lg:items-center lg:justify-end lg:space-x-6 sm:ml-auto">
               <button
-                onClick={() => handleNav("login")}
+                onClick={() => handleNav("allTasks")}
                 className="hidden text-base text-white transition-all duration-200 lg:inline-flex hover:text-opacity-80"
               >
-                Log in
+                My Tasks
               </button>
               <button
                 onClick={() => handleNav("sign-in")}
