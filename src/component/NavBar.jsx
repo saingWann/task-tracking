@@ -12,17 +12,21 @@ const NavBar = () => {
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="flex items-center justify-between h-16 lg:h-20">
             <div className="pr-10">
-              <a href="#" className="text-white font-bold text-xl">
+              <button
+                onClick={() => handleNav("allTasks")}
+                href="#"
+                className="text-white font-bold text-xl"
+              >
                 KeepOnTrack.
-              </a>
+              </button>
             </div>
 
             <div className="lg:flex lg:items-center lg:justify-end lg:space-x-6 sm:ml-auto">
               <button
-                onClick={() => handleNav("allTasks")}
+                onClick={() => handleNav("login")}
                 className="hidden text-base text-white transition-all duration-200 lg:inline-flex hover:text-opacity-80"
               >
-                My Tasks
+                login
               </button>
               <button
                 onClick={() => handleNav("sign-in")}
