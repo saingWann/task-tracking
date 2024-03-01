@@ -32,23 +32,24 @@ const Card = () => {
   }
   if (renderByCategory) {
     return (
-      <section className="lg:w-[85%] md:w-[75%] w-full flex flex-col ms-auto lg:px-10 md:px-10 text-gray-600 body-font relative lg:mt-10 ">
+      <section className="lg:w-[85%] md:w-[75%] w-full flex flex-col ms-auto lg:px-10 md:px-10 text-gray-600 body-font relative lg:mt-10 my-5">
         <Categories />
-        <div className="grid grid-cols-1  lg:grid-cols-3 lg:order-1 -order-1 ">
-          {renderByCategory.length === 0 ? (
-            <div className="w-full h-64 flex flex-col items-center justify-center ">
-              <CircleSlash2 size={100} className="opacity-50" />
 
-              <h1 className="text-center mt-10 text-3xl">
-                There is no task in this category!
-              </h1>
-            </div>
-          ) : (
-            currentTodoArray.map((task, index) => (
+        {renderByCategory.length === 0 ? (
+          <div className="w-full h-96 flex flex-col items-center justify-center ">
+            <CircleSlash2 size={100} className="opacity-50" />
+
+            <h1 className="text-center mt-10 lg:text-3xl">
+              There is no task in this category!
+            </h1>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1  lg:grid-cols-3 lg:order-1 -order-1 items-center">
+            {currentTodoArray.map((task, index) => (
               <Carditem key={task.id} task={task} index={index} />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
     );
   }

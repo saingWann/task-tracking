@@ -35,7 +35,7 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
   
   
   export const deleteData = createAsyncThunk('currentTasks/deleteData', async (id) => {
-     
+    console.log(id)
        const response = await api.delete(`/allTasks/${id}`);
        return response.data
   });
@@ -51,7 +51,7 @@ const currentTasksSlice = createSlice ({
             if (action.payload === "All") {
              
               filterData = state.currentTasks.filter(
-                  (task) => task.moveToTrash === false && task.complete === false || task.complete === false
+                  (task) => task.moveToTrash === false && task.complete === false && task.complete === false
                 )
         
             } else if (action.payload === "Trash bin") {
@@ -94,14 +94,11 @@ const currentTasksSlice = createSlice ({
               .addCase(moveToBin.fulfilled, (state, action) => {
                 const index = state.currentTasks.findIndex(item => item.id === action.payload.id);
                 if (index !== -1) {
-                    console.log(state.currentTasks[index].moveToTrash)
-                    console.log(action.payload)
+                    // console.log(action.payload)
                   state.currentTasks[index].moveToTrash = action.payload.moveToTrash;
                 }
               })
               .addCase(editData.fulfilled, (state, action) => {
-                console.log('first')
-                console.log(action.payload)
                 const index = state.currentTasks.findIndex(item => item.id === action.payload.id);
                 if (index !== -1) {
                   
@@ -111,13 +108,14 @@ const currentTasksSlice = createSlice ({
               .addCase(handleComplete.fulfilled, (state, action) => {
                 const index = state.currentTasks.findIndex(item => item.id === action.payload.id);
                 if (index !== -1) {
-                    console.log(state.currentTasks[index].complete)
-                    console.log(action.payload)
+                    // console.log(state.currentTasks[index].complete)
+                    // console.log(action.payload)
                   state.currentTasks[index].complete = action.payload.complete;
                 }
               })
               .addCase(deleteData.fulfilled, (state, action) => {
-                state.currentTasks = state.currentTasks.filter(item => item.id !== action.payload);
+                console.log(action.payload)
+                state.currentTasks = state.currentTasks.filter(item => item.id !== action.payload.id);
               });
           },
             

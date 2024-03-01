@@ -106,7 +106,7 @@ const Carditem = ({ task, index }) => {
       onMouseLeave={() => {
         setShowMore(false);
       }}
-      className={`w-full p-5 `}
+      className={` p-5`}
     >
       <span
         className={`p-3 text-white rounded-t-lg font-bold block w-full ${
@@ -116,9 +116,9 @@ const Carditem = ({ task, index }) => {
         {task.complete ? "Done" : task.priority}
       </span>
       <div
-        className={`h-fit max-h-[16rem] flex items-start py-8 px-4 bg-white border shadow-lg rounded-b-lg `}
+        className={`flex items-start py-8 px-4 bg-white border shadow-lg rounded-b-lg lg:h-[85%] h-fit`}
       >
-        <div className="w-12 flex-shrink-0 flex flex-col text-center leading-none">
+        <div className="w-12 flex-shrink-0 flex flex-col text-center leading-none ">
           <span className="text-gray-500 pb-2 mb-2 border-b-2 border-gray-200">
             {task.createdTime.month}
           </span>
