@@ -8,6 +8,7 @@ import { toggleSideBar } from "../features/showMenu";
 import { setCurrentPage } from "../features/currentPage";
 import { renderByType } from "../features/currentTasks";
 import { setIsChange } from "../features/isChange";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const { currentTasks } = useSelector((state) => state.currentTasks);
@@ -15,6 +16,10 @@ const Sidebar = () => {
   const isSideBarShown = useSelector((state) => state.sideBar);
 
   const dispatch = useDispatch();
+  const nav = useNavigate();
+  const handleNav = (path) => {
+    nav(path);
+  };
 
   useEffect(() => {
     // console.log(currentTasks);
@@ -63,7 +68,12 @@ const Sidebar = () => {
     >
       <div>
         <div className="flex flex-col w-full px-5 py-4">
-          <p className="font-bold text-xl">KeepOnTrack.</p>
+          <p
+            onClick={() => handleNav("/")}
+            className="font-bold text-xl cursor-pointer hover:text-gray-700"
+          >
+            KeepOnTrack.
+          </p>
           <p className="capitalize text-sm text-gray-500">stay progressive</p>
           <X
             onClick={handleMenu}

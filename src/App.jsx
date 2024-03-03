@@ -1,28 +1,32 @@
-import { useEffect, useState } from "react";
-import { Headbar, Card, Sidebar, FormGroup } from "./component/index";
-import { useDispatch } from "react-redux";
-import { fetchCurrentData } from "./features/currentTasks";
-import { Routes, Route, NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
-import TasksShowCasePage from "./Pages/TasksShowCasePage";
 import SignInPage from "./Pages/SignInPage";
 import HomePage from "./Pages/HomePage";
-import NavBar from "./component/NavBar";
+import { fetchAllUser } from "./features/auth/authentication";
+import Auth from "./Pages/Auth";
+import { fetchCurrentData } from "./features/currentTasks";
 
 const App = () => {
   // const [taskToEdit, setTaskToEdit] = useState({});
 
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.allUsers);
 
   useEffect(() => {
-    dispatch(fetchCurrentData());
-  }, []);
+    // console.log(currentUser.id);
+    if (currentUser.id) {
+      console.log("hello");
+      dispatch(fetchCurrentData(currentUser.id));
+    }
+    dispatch(fetchAllUser());
+  }, [currentUser]);
 
   return (
     <main>
-      {/* <NavBar /> */}
       <Routes>
-        <Route path="/allTasks" element={<TasksShowCasePage />} />
+        <Route path="/allTasks" element={<Auth />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/" element={<HomePage />} />

@@ -1,42 +1,44 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import { api } from '../Api';
 
-export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async () => {
-    const response = await api.get(`/allTasks`);
+export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async (userId) => {
+    const response = await api.get(`/user/${userId}/tasks`);
     // console.log(response.data)
     return response.data;
   });
 
-  export const addData = createAsyncThunk('currentTasks/addData', async (newItem) => {
-    const response = await api.post(`/allTasks`, newItem);
+  export const addData = createAsyncThunk('currentTasks/addData', async ([newItem,userId]) => {
+    console.log(userId)
+    const response = await api.post(`/user/${userId}/tasks`, newItem);
     return response.data;
   });
   
-  export const moveToBin = createAsyncThunk('currentTasks/moveToBin', async (action) => {
+  export const moveToBin = createAsyncThunk('currentTasks/moveToBin', async ([action,userId]) => {
     // console.log(action.id)
-     const response = await api.put(`/allTasks/${action.id}`, { moveToTrash: !action.moveToTrash });
+     const response = await api.put(`/user/${userId}/tasks/${action.id}`, { moveToTrash: !action.moveToTrash });
     
     return response.data
   });
 
-  export const handleComplete = createAsyncThunk('currentTasks/handleComplete', async (action) => {
-    console.log(action.taskToUpdate)
-     const response = await api.put(`/allTasks/${action.id}`, { ...action.taskToUpdate });
-    
+  export const handleComplete = createAsyncThunk('currentTasks/handleComplete', async ([task,userId]) => {
+    console.log(task)
+    console.log(userId)
+     const response = await api.put(`/user/${userId}/tasks/${task.id}`, { ...task });
+    console.log(response.data)
     return response.data
   });
 
   
   export const editData = createAsyncThunk('currentTasks/editData', async (action) => {
     console.log(action)
-     const response = await api.put(`/allTasks/${action.id}`, {...action});
+     const response = await api.put(`/user/1/tasks/${action.id}`, {...action});
     return response.data
   });
   
   
   export const deleteData = createAsyncThunk('currentTasks/deleteData', async (id) => {
     console.log(id)
-       const response = await api.delete(`/allTasks/${id}`);
+       const response = await api.delete(`/allTasks/${id}/tasks`);
        return response.data
   });
 
@@ -48,8 +50,8 @@ const currentTasksSlice = createSlice ({
         renderByType: (state,action) => {
             let filterData;
             
+
             if (action.payload === "All") {
-             
               filterData = state.currentTasks.filter(
                   (task) => task.moveToTrash === false && task.complete === false && task.complete === false
                 )
@@ -69,7 +71,7 @@ const currentTasksSlice = createSlice ({
                   task.complete === false
                   ); 
             }
-            // console.log({...state,renderByCategory:filterData})
+            console.log({...state,renderByCategory:filterData})
             return  {...state,renderByCategory:filterData}
           }
         },
@@ -109,7 +111,7 @@ const currentTasksSlice = createSlice ({
                 const index = state.currentTasks.findIndex(item => item.id === action.payload.id);
                 if (index !== -1) {
                     // console.log(state.currentTasks[index].complete)
-                    // console.log(action.payload)
+                    console.log(action.payload.complete)
                   state.currentTasks[index].complete = action.payload.complete;
                 }
               })

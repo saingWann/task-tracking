@@ -1,9 +1,6 @@
 import { CopyX } from "lucide-react";
 import { motion as m } from "framer-motion";
-
-import React, { useState } from "react";
-
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleFormState } from "../features/formSlice";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -15,6 +12,7 @@ import { setIsChange } from "../features/isChange";
 
 const AddTaskFormik = () => {
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.allUsers);
 
   const handleSubmitForm = (value) => {
     dispatch(toggleFormState());
@@ -39,7 +37,7 @@ const AddTaskFormik = () => {
       moveToTrash: false,
     };
 
-    dispatch(addData(newData));
+    dispatch(addData([newData, currentUser.id]));
     dispatch(setIsChange());
     // console.log(newData);
   };

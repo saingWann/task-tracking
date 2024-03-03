@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CircleSlash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { renderByType } from "../features/currentTasks";
+import { fetchCurrentData, renderByType } from "../features/currentTasks";
 
 const Card = () => {
   const { renderByCategory, loading, currentTasks } = useSelector(
     (state) => state.currentTasks
   );
+
   const isChange = useSelector((state) => state.isChange);
   const activeTab = useSelector((state) => state.activeTab);
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Card = () => {
 
   useEffect(() => {
     dispatch(renderByType(activeTab));
+    console.log(renderByCategory);
   }, [currentTasks, isChange, currentPage]);
 
   if (loading) {

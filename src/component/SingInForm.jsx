@@ -4,10 +4,19 @@ import { motion } from "framer-motion";
 import { Form, Formik } from "formik";
 import TextInput from "./input/TextInput";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addUser } from "../features/auth/authentication";
 
 const SignInForm = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
   const handleNav = () => {
+    nav("/login");
+  };
+
+  const handleSubmit = (value) => {
+    dispatch(addUser(value));
+    alert("Register successful! proceed to login.");
     nav("/login");
   };
 
@@ -47,7 +56,7 @@ const SignInForm = () => {
                   name: "",
                   email: "",
                   password: "",
-                  confrimPassword: "",
+                  confirmPassword: "",
                 }}
                 validationSchema={Yup.object({
                   name: Yup.string().required("Enter username"),
@@ -68,6 +77,9 @@ const SignInForm = () => {
                     )
                     .required("*Password is required*"),
                 })}
+                onSubmit={(value) => {
+                  handleSubmit(value);
+                }}
               >
                 <Form action="#" method="POST" className="mt-8 ">
                   <div className="space-y-5">

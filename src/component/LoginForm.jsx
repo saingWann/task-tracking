@@ -1,14 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Form, Formik } from "formik";
 import TextInput from "./input/TextInput";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../features/auth/authentication";
 
 const LoginForm = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+  const { allUsers, currentUser } = useSelector((state) => state.allUsers);
   const handleNav = () => {
     nav("/sign-in");
+  };
+
+  useEffect(() => {
+    // console.log(currentUser);
+    if (currentUser.token) {
+      nav("/allTasks");
+    }
+  }, [currentUser]);
+
+  const handleSubmit = (value) => {
+    // console.log(value);
+    const currentUser = allUsers.filter(
+      (user) => user.password === value.password && user.email === value.email
+    );
+    // console.log(currentUser[0]);
+    dispatch(setCurrentUser(currentUser[0]));
+    if (currentUser) {
+      alert("login successfully");
+      nav("/allTasks");
+    } else {
+      alert("user not found");
+    }
   };
   return (
     <main className=" h-screen bg-no-repeat bg-cover overflow-y-hidden">
@@ -58,6 +84,9 @@ const LoginForm = () => {
                     )
                     .required("Password is required"),
                 })}
+                onSubmit={(value, { isSubmitting }) => {
+                  handleSubmit(value);
+                }}
               >
                 <Form action="#" method="POST" className="mt-8 ">
                   <div className="space-y-5">

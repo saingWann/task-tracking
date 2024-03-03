@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { CheckSquare, Edit2Icon, Trash2Icon } from "lucide-react";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleEditState } from "../features/formSlice";
 import {
   deleteData,
@@ -13,6 +13,8 @@ import { setTaskToEdit } from "../features/taskToEdit";
 const Carditem = ({ task, index }) => {
   // console.log(task.id);
   const [showMore, setShowMore] = useState(false);
+
+  const { currentUser } = useSelector((state) => state.allUsers);
 
   const dispatch = useDispatch();
 
@@ -70,16 +72,10 @@ const Carditem = ({ task, index }) => {
   };
 
   const HandleComplete = (task) => {
-    // dispatch(fetchCurrentData());s
-    console.log(task);
     if (!task.complete) {
       alert(`Task has been move to "Done"`);
-      dispatch(
-        handleComplete({
-          id: task.id,
-          taskToUpdate: { ...task, complete: true },
-        })
-      );
+      // console.log(currentUser.id);
+      dispatch(handleComplete([{ ...task, complete: true }, currentUser.id]));
     } else {
       alert(`Task has been move back to ${task.type}`);
       dispatch(

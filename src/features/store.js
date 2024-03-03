@@ -6,6 +6,7 @@ import CurrentPageReducer from './currentPage'
 import currentTasksReducer from './currentTasks'
 import isChangeReducer from './isChange'
 import taskToEdit from './taskToEdit'
+import UsersReducer from './auth/authentication'
 
 export const store = configureStore({
     reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
         currentTasks: currentTasksReducer,
         isChange: isChangeReducer,
         taskToEdit: taskToEdit,
+        allUsers: UsersReducer
     },
 })
