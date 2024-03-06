@@ -7,13 +7,14 @@ const Auth = () => {
   const { currentUser } = useSelector((state) => state.allUsers);
   const navigate = useNavigate();
 
+  const loginAuthed = localStorage.getItem("auth");
   useEffect(() => {
-    if (!currentUser.token) {
+    if (!loginAuthed) {
       navigate("/login");
     }
-  }, [currentUser]);
+  }, [currentUser, loginAuthed]);
 
-  if (currentUser) {
+  if (loginAuthed) {
     return <TasksShowCasePage />;
   }
 };

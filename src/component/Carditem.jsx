@@ -55,18 +55,14 @@ const Carditem = ({ task, index }) => {
   const handleDelete = (task) => {
     if (task.moveToTrash === true) {
       if (confirm("You sure!This task will be remove permently!")) {
-        dispatch(deleteData(task.id));
+        console.log(task.id);
+        dispatch(deleteData([currentUser.id, task.id]));
         // dispatch(fetchCurrentData());
       }
     } else {
       if (confirm("You sure!This task will be moved to trash bin!")) {
         // dispatch(fetchCurrentData());
-        dispatch(
-          moveToBin({
-            id: task.id,
-            taskToUpdate: { ...task, moveToTrash: true },
-          })
-        );
+        dispatch(moveToBin([currentUser.id, { ...task, moveToTrash: true }]));
       }
     }
   };
@@ -75,15 +71,10 @@ const Carditem = ({ task, index }) => {
     if (!task.complete) {
       alert(`Task has been move to "Done"`);
       // console.log(currentUser.id);
-      dispatch(handleComplete([{ ...task, complete: true }, currentUser.id]));
+      dispatch(handleComplete([currentUser.id, { ...task, complete: true }]));
     } else {
       alert(`Task has been move back to ${task.type}`);
-      dispatch(
-        handleComplete({
-          id: task.id,
-          taskToUpdate: { ...task, complete: false },
-        })
-      );
+      dispatch(handleComplete([currentUser.id, { ...task, complete: false }]));
     }
   };
 

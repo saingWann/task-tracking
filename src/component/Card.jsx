@@ -11,10 +11,12 @@ const Card = () => {
   );
 
   const isChange = useSelector((state) => state.isChange);
+
   const activeTab = useSelector((state) => state.activeTab);
   const dispatch = useDispatch();
 
   const currentPage = useSelector((state) => state.currentPage);
+  const { currentUser, allUsers } = useSelector((state) => state.allUsers);
 
   const cardPerPage = 6;
   const indexOfLastPost = currentPage * cardPerPage;
@@ -25,9 +27,9 @@ const Card = () => {
   );
 
   useEffect(() => {
+    dispatch(fetchCurrentData(currentUser.id));
     dispatch(renderByType(activeTab));
-    console.log(renderByCategory);
-  }, [currentTasks, isChange, currentPage]);
+  }, [isChange, currentPage]);
 
   if (loading) {
     return <h1>laoding .... loading</h1>;

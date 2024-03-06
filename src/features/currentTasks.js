@@ -8,37 +8,38 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
   });
 
   export const addData = createAsyncThunk('currentTasks/addData', async ([newItem,userId]) => {
-    console.log(userId)
+    // console.log(userId)
     const response = await api.post(`/user/${userId}/tasks`, newItem);
     return response.data;
   });
   
-  export const moveToBin = createAsyncThunk('currentTasks/moveToBin', async ([action,userId]) => {
-    // console.log(action.id)
-     const response = await api.put(`/user/${userId}/tasks/${action.id}`, { moveToTrash: !action.moveToTrash });
+  export const moveToBin = createAsyncThunk('currentTasks/moveToBin', async ([userId,action]) => {
+    console.log(action)
+    const response = await api.put(`/user/${userId}/tasks/${action.id}`, { ...action });
     
     return response.data
   });
 
-  export const handleComplete = createAsyncThunk('currentTasks/handleComplete', async ([task,userId]) => {
-    console.log(task)
-    console.log(userId)
+  export const handleComplete = createAsyncThunk('currentTasks/handleComplete', async ([userId,task]) => {
+    // console.log(task)
+    // console.log(userId)
      const response = await api.put(`/user/${userId}/tasks/${task.id}`, { ...task });
     console.log(response.data)
     return response.data
   });
 
   
-  export const editData = createAsyncThunk('currentTasks/editData', async (action) => {
-    console.log(action)
-     const response = await api.put(`/user/1/tasks/${action.id}`, {...action});
+  export const editData = createAsyncThunk('currentTasks/editData', async ([userId,action]) => {
+    // console.log(action)
+    // console.log(userId)
+     const response = await api.put(`/user/${userId}/tasks/${action.id}`, {...action});
     return response.data
   });
   
   
-  export const deleteData = createAsyncThunk('currentTasks/deleteData', async (id) => {
-    console.log(id)
-       const response = await api.delete(`/allTasks/${id}/tasks`);
+  export const deleteData = createAsyncThunk('currentTasks/deleteData', async ([userId,taskId]) => {
+    // console.log(taskId)
+       const response = await api.delete(`/user/${userId}/tasks/${taskId}`);
        return response.data
   });
 
@@ -71,7 +72,7 @@ const currentTasksSlice = createSlice ({
                   task.complete === false
                   ); 
             }
-            console.log({...state,renderByCategory:filterData})
+            // console.log({...state,renderByCategory:filterData})
             return  {...state,renderByCategory:filterData}
           }
         },

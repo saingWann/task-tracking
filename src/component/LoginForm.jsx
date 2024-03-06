@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import TextInput from "./input/TextInput";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser } from "../features/auth/authentication";
+import { fetchAllUser, setCurrentUser } from "../features/auth/authentication";
 
 const LoginForm = () => {
   const nav = useNavigate();
@@ -17,23 +17,30 @@ const LoginForm = () => {
 
   useEffect(() => {
     // console.log(currentUser);
-    if (currentUser.token) {
+    dispatch(fetchAllUser());
+
+    if (localStorage.getItem("auth")) {
       nav("/allTasks");
+      const currentLoginedUser = allUsers.filter(
+        (user) => user.token === localStorage.getItem("auth")
+      );
+      console.log(currentLoginedUser);
+
+      dispatch(setCurrentUser(currentLoginedUser[0]));
     }
-  }, [currentUser]);
+  }, []);
 
   const handleSubmit = (value) => {
-    // console.log(value);
-    const currentUser = allUsers.filter(
+    const userNow = allUsers.filter(
       (user) => user.password === value.password && user.email === value.email
     );
-    // console.log(currentUser[0]);
-    dispatch(setCurrentUser(currentUser[0]));
-    if (currentUser) {
-      alert("login successfully");
+    console.log(userNow);
+    if (userNow.length !== 0) {
+      dispatch(setCurrentUser(userNow[0]));
+      localStorage.setItem("auth", JSON.stringify(userNow[0].token));
       nav("/allTasks");
     } else {
-      alert("user not found");
+      alert("User Not Found!");
     }
   };
   return (

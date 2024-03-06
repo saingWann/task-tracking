@@ -3,12 +3,14 @@ import { motion as m } from "framer-motion";
 
 import React, { useContext, useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleEditState } from "../features/formSlice";
+import { editData } from "../features/currentTasks";
 
 const EditForm = () => {
   const [Characters, setCharacters] = useState(0);
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.currentUser);
 
   const checkCharacters = (e) => {
     const length = e.target.value.length;
@@ -17,7 +19,7 @@ const EditForm = () => {
 
   const handleEditSubmitForm = (e) => {
     e.preventDefault();
-    editCardItem(taskToEdit.id);
+    dispatch(editData([currentUser.id, taskToEdit.id]));
     dispatch(toggleEditState());
   };
 

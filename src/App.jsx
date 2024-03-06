@@ -15,12 +15,9 @@ const App = () => {
   const { currentUser } = useSelector((state) => state.allUsers);
 
   useEffect(() => {
-    // console.log(currentUser.id);
     if (currentUser.id) {
-      console.log("hello");
       dispatch(fetchCurrentData(currentUser.id));
     }
-    dispatch(fetchAllUser());
   }, [currentUser]);
 
   return (
