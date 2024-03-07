@@ -18,18 +18,23 @@ const LoginForm = () => {
     nav("/sign-in");
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // fetchAllUser();
+    // console.log(allUsers);
+  }, []);
 
   const handleSubmit = (value) => {
     const userNow = allUsers.filter(
       (user) => user.password === value.password && user.email === value.email
-    );
-    console.log(userNow);
-    if (userNow.length !== 0) {
-      dispatch(setCurrentUser(userNow[0].token));
-      localStorage.setItem("auth", JSON.stringify(userNow[0].token));
+    )[0];
+    // console.log(userNow);
+    // console.log(allUsers);
+    if (userNow.token) {
+      dispatch(setCurrentUser(userNow.id));
+      localStorage.setItem("auth", JSON.stringify(userNow.token));
       nav("/allTasks");
-      console.log(currentUser);
+      localStorage.setItem("currentUserId", userNow.id);
+      // console.log(currentUser);
     } else {
       // console.log(userNow[0]);
       alert("User Not Found!");

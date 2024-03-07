@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentUser } from "../features/auth/authentication";
+import { fetchAllUser, setCurrentUser } from "../features/auth/authentication";
 import useLoginedUser from "../hooks/useLoginedUser";
 const NavBar = () => {
   const { currentUser, allUsers } = useSelector((state) => state.allUsers);
@@ -19,8 +19,10 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
+    // console.log("navbar render");
+    dispatch(fetchAllUser());
+    // console.log(allUsers);
+  }, []);
 
   return (
     <>

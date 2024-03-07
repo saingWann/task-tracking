@@ -24,7 +24,7 @@ export const fetchCurrentData = createAsyncThunk('currentTasks/fetchData', async
     // console.log(task)
     // console.log(userId)
      const response = await api.put(`/user/${userId}/tasks/${task.id}`, { ...task });
-    console.log(response.data)
+    // console.log(response.data)
     return response.data
   });
 
@@ -50,6 +50,7 @@ const currentTasksSlice = createSlice ({
     reducers: {
         renderByType: (state,action) => {
             let filterData;
+            // console.log(action)
             
 
             if (action.payload === "All") {

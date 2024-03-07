@@ -12,7 +12,6 @@ import { setIsChange } from "../features/isChange";
 
 const AddTaskFormik = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.allUsers);
 
   const handleSubmitForm = (value) => {
     dispatch(toggleFormState());
@@ -36,8 +35,8 @@ const AddTaskFormik = () => {
       complete: false,
       moveToTrash: false,
     };
-
-    dispatch(addData([newData, currentUser.id]));
+    const currentUserId = JSON.parse(localStorage.getItem("currentUserId"));
+    dispatch(addData([newData, currentUserId]));
     dispatch(setIsChange());
     // console.log(newData);
   };

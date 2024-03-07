@@ -7,7 +7,7 @@ export const taskToEdit = createSlice({
     reducers:{
          setTaskToEdit :(state,actions) => {
         
-             console.log(actions.payload)
+            //  console.log(actions.payload)
             return state = actions.payload
     }
     }

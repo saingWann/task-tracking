@@ -4,12 +4,13 @@ import { CircleSlash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCurrentData, renderByType } from "../features/currentTasks";
+import { fetchAllUser, setCurrentUser } from "../features/auth/authentication";
 
 const Card = () => {
   const { renderByCategory, loading, currentTasks } = useSelector(
     (state) => state.currentTasks
   );
-  const { currentUser } = useSelector((state) => state.allUsers);
+  const { currentUser, allUsers } = useSelector((state) => state.allUsers);
 
   const currentPage = useSelector((state) => state.currentPage);
 
@@ -20,13 +21,22 @@ const Card = () => {
   const isChange = useSelector((state) => state.isChange);
 
   useEffect(() => {
-    console.log(currentUser);
-    if (currentUser.id) {
-      dispatch(fetchCurrentData(currentUser.id));
+    // console.log(allUsers);
+    if (currentUser) {
       dispatch(renderByType(activeTab));
-      console.log(renderByCategory);
+      // console.log(renderByCategory);
+      // console.log(currentUser);
     }
-  }, [isChange, currentUser]);
+    // console.log("ischnaged");
+  }, [isChange, currentTasks]);
+
+  useEffect(() => {
+    // dispatch(setCurrentUser(currentUser));
+    if (localStorage.getItem("currentUserId")) {
+      // console.log("fetch all task");
+      dispatch(fetchCurrentData(localStorage.getItem("currentUserId")));
+    }
+  }, [isChange]);
 
   const cardPerPage = 6;
   const indexOfLastPost = currentPage * cardPerPage;

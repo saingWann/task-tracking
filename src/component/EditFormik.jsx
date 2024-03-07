@@ -1,7 +1,7 @@
 import { CopyX } from "lucide-react";
 import { motion as m } from "framer-motion";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleEditState, toggleFormState } from "../features/formSlice";
@@ -12,15 +12,19 @@ import SelectInput from "./input/SelectInput";
 import TextAreaInput from "./input/TextAreaInput";
 import { addData, editData } from "../features/currentTasks";
 import { setIsChange } from "../features/isChange";
+import { fetchAllUser } from "../features/auth/authentication";
 
 const EditFormik = () => {
   const dispatch = useDispatch();
   const taskToEdit = useSelector((state) => state.taskToEdit);
 
+  useEffect(() => {
+    dispatch(fetchAllUser());
+  }, [taskToEdit]);
   const handleSubmitForm = (value) => {
     const editedTask = { ...taskToEdit, ...value };
-    // console.log(editedTask);
-    dispatch(editData(editedTask));
+    const curenUserId = JSON.parse(localStorage.getItem("currentUserId"));
+    dispatch(editData([curenUserId, editedTask]));
     dispatch(setIsChange());
     dispatch(toggleEditState());
   };
