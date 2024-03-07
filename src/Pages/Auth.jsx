@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom";
 import TasksShowCasePage from "./TasksShowCasePage";
 
 const Auth = () => {
-  const { currentUser } = useSelector((state) => state.allUsers);
   const navigate = useNavigate();
 
-  const loginAuthed = localStorage.getItem("auth");
+  const loginAuthed = JSON.parse(localStorage.getItem("auth"));
   useEffect(() => {
     if (!loginAuthed) {
       navigate("/login");
+      console.log("hello");
     }
-  }, [currentUser, loginAuthed]);
+  }, []);
 
   if (loginAuthed) {
     return <TasksShowCasePage />;

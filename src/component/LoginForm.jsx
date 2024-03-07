@@ -6,29 +6,19 @@ import TextInput from "./input/TextInput";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUser, setCurrentUser } from "../features/auth/authentication";
+import isChange from "../features/isChange";
+import useLoginedUser from "../hooks/useLoginedUser";
 
 const LoginForm = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const { allUsers, currentUser } = useSelector((state) => state.allUsers);
+
   const handleNav = () => {
     nav("/sign-in");
   };
 
-  useEffect(() => {
-    // console.log(currentUser);
-    dispatch(fetchAllUser());
-
-    if (localStorage.getItem("auth")) {
-      nav("/allTasks");
-      const currentLoginedUser = allUsers.filter(
-        (user) => user.token === localStorage.getItem("auth")
-      );
-      console.log(currentLoginedUser);
-
-      dispatch(setCurrentUser(currentLoginedUser[0]));
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   const handleSubmit = (value) => {
     const userNow = allUsers.filter(
@@ -36,10 +26,12 @@ const LoginForm = () => {
     );
     console.log(userNow);
     if (userNow.length !== 0) {
-      dispatch(setCurrentUser(userNow[0]));
+      dispatch(setCurrentUser(userNow[0].token));
       localStorage.setItem("auth", JSON.stringify(userNow[0].token));
       nav("/allTasks");
+      console.log(currentUser);
     } else {
+      // console.log(userNow[0]);
       alert("User Not Found!");
     }
   };

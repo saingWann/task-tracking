@@ -1,4 +1,3 @@
-import React from "react";
 import Hero from "../component/Hero";
 import Benifits from "../component/Benifits";
 import Footer from "../component/Footer";

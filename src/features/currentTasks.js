@@ -53,9 +53,11 @@ const currentTasksSlice = createSlice ({
             
 
             if (action.payload === "All") {
+
               filterData = state.currentTasks.filter(
                   (task) => task.moveToTrash === false && task.complete === false && task.complete === false
                 )
+                // console.log(filterData)
         
             } else if (action.payload === "Trash bin") {
               filterData = state.currentTasks.filter(

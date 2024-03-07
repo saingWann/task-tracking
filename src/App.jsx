@@ -4,21 +4,18 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import SignInPage from "./Pages/SignInPage";
 import HomePage from "./Pages/HomePage";
-import { fetchAllUser } from "./features/auth/authentication";
+import { fetchAllUser, setCurrentUser } from "./features/auth/authentication";
 import Auth from "./Pages/Auth";
-import { fetchCurrentData } from "./features/currentTasks";
+import { fetchCurrentData, renderByType } from "./features/currentTasks";
+import useLoginedUser from "./hooks/useLoginedUser";
 
 const App = () => {
-  // const [taskToEdit, setTaskToEdit] = useState({});
-
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.allUsers);
 
   useEffect(() => {
-    if (currentUser.id) {
-      dispatch(fetchCurrentData(currentUser.id));
-    }
-  }, [currentUser]);
+    console.log("refresh");
+    dispatch(fetchAllUser());
+  }, []);
 
   return (
     <main>

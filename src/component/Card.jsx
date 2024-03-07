@@ -9,14 +9,24 @@ const Card = () => {
   const { renderByCategory, loading, currentTasks } = useSelector(
     (state) => state.currentTasks
   );
+  const { currentUser } = useSelector((state) => state.allUsers);
+
+  const currentPage = useSelector((state) => state.currentPage);
+
+  const activeTab = useSelector((state) => state.activeTab);
+
+  const dispatch = useDispatch();
 
   const isChange = useSelector((state) => state.isChange);
 
-  const activeTab = useSelector((state) => state.activeTab);
-  const dispatch = useDispatch();
-
-  const currentPage = useSelector((state) => state.currentPage);
-  const { currentUser, allUsers } = useSelector((state) => state.allUsers);
+  useEffect(() => {
+    console.log(currentUser);
+    if (currentUser.id) {
+      dispatch(fetchCurrentData(currentUser.id));
+      dispatch(renderByType(activeTab));
+      console.log(renderByCategory);
+    }
+  }, [isChange, currentUser]);
 
   const cardPerPage = 6;
   const indexOfLastPost = currentPage * cardPerPage;
@@ -25,11 +35,7 @@ const Card = () => {
     indexOfFirstPost,
     indexOfLastPost
   );
-
-  useEffect(() => {
-    dispatch(fetchCurrentData(currentUser.id));
-    dispatch(renderByType(activeTab));
-  }, [isChange, currentPage]);
+  // console.log(currentTodoArray);
 
   if (loading) {
     return <h1>laoding .... loading</h1>;

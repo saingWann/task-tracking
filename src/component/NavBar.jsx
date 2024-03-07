@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../features/auth/authentication";
+import useLoginedUser from "../hooks/useLoginedUser";
 const NavBar = () => {
-  const { currentUser } = useSelector((state) => state.allUsers);
+  const { currentUser, allUsers } = useSelector((state) => state.allUsers);
   const nav = useNavigate();
   const dispatch = useDispatch();
 
@@ -12,10 +13,14 @@ const NavBar = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(setCurrentUser({}));
     localStorage.removeItem("auth");
+    dispatch(setCurrentUser(null));
     nav("/");
   };
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
 
   return (
     <>
@@ -24,8 +29,7 @@ const NavBar = () => {
           <div className="flex items-center justify-between h-16 lg:h-20">
             <div className="pr-10">
               <button
-                onClick={() => handleNav("allTasks")}
-                href="#"
+                onClick={() => handleNav("/allTasks")}
                 className="text-white font-bold text-xl hover:text-purple-200"
               >
                 KeepOnTrack.
@@ -35,7 +39,7 @@ const NavBar = () => {
             {currentUser.token ? (
               <div className="lg:flex lg:items-center lg:justify-end  sm:ml-auto">
                 <button
-                  onClick={() => handleNav("login")}
+                  onClick={() => handleNav("allTasks")}
                   className="hidden lg:inline-block items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white hover:bg-white/40 focus:bg-white/40 rounded-lg"
                 >
                   {currentUser.name}

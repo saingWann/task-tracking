@@ -27,8 +27,8 @@ const allUsersSlice = createSlice ({
     initialState: {allUsers:[],currentUser:{},loading:false,error:null},
     reducers: {
        setCurrentUser: (state,aciton) => {
-        state.currentUser = {...aciton.payload}
-        // console.log(typeof state.currentUser)
+        state.currentUser = state.allUsers.filter((user) => user.token === aciton.payload)
+        console.log(state.currentUser)
        }
         },
        
@@ -40,6 +40,11 @@ const allUsersSlice = createSlice ({
               .addCase(fetchAllUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.allUsers = action.payload
+                console.log(state.allUsers)
+                if(localStorage.getItem('auth')){
+                  state.currentUser = state.allUsers.filter((user) => user.token === JSON.parse((localStorage.getItem('auth'))))[0]
+                  console.log(state.currentUser)
+                }
               })
               .addCase(fetchAllUser.rejected, (state, action) => {
                 state.loading = false;
