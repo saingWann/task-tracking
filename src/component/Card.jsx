@@ -1,10 +1,12 @@
 import { Carditem, Categories } from "./index";
-import { motion, AnimatePresence } from "framer-motion";
 import { CircleSlash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCurrentData, renderByType } from "../features/currentTasks";
-import { fetchAllUser, setCurrentUser } from "../features/auth/authentication";
+import "../styles/loading.css";
+import "ldrs/spiral";
+
+// Default values shown
 
 const Card = () => {
   const { renderByCategory, loading, currentTasks } = useSelector(
@@ -24,10 +26,7 @@ const Card = () => {
     // console.log(allUsers);
     if (currentUser) {
       dispatch(renderByType(activeTab));
-      // console.log(renderByCategory);
-      // console.log(currentUser);
     }
-    // console.log("ischnaged");
   }, [isChange, currentTasks]);
 
   useEffect(() => {
@@ -48,7 +47,12 @@ const Card = () => {
   // console.log(currentTodoArray);
 
   if (loading) {
-    return <h1>laoding .... loading</h1>;
+    return (
+      <div className="lg:w-[85%] md:w-[75%] w-full flex flex-col items-center justify-center ms-auto h-[70svh] text-gray-600 lg:mt-10 my-5">
+        <l-spiral size="40" speed="0.9" color="black"></l-spiral>
+        <p className="text-gray-400 text-xl mt-3">Loading your data...</p>
+      </div>
+    );
   }
   if (renderByCategory) {
     return (

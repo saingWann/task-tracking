@@ -1,14 +1,11 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import SignInPage from "./Pages/SignInPage";
 import HomePage from "./Pages/HomePage";
-import { fetchAllUser, setCurrentUser } from "./features/auth/authentication";
+import { fetchAllUser } from "./features/auth/authentication";
 import Auth from "./Pages/Auth";
-import { fetchCurrentData, renderByType } from "./features/currentTasks";
-import useLoginedUser from "./hooks/useLoginedUser";
-
 const App = () => {
   const dispatch = useDispatch();
 

@@ -19,8 +19,9 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    // fetchAllUser();
-    // console.log(allUsers);
+    if (localStorage.getItem("auth")) {
+      nav("/allTasks");
+    }
   }, []);
 
   const handleSubmit = (value) => {
@@ -65,7 +66,7 @@ const LoginForm = () => {
             initial={{ opacity: 0, y: 200 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8 sm:py-16 lg:py-10 shadow-lg  bg-white rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-20 "
+            className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8 sm:py-16 lg:py-10 shadow-lg  bg-white rounded-md lg:w-[40%] w-full border-2 border-purple-900/20 "
           >
             <div className="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto ">
               <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">

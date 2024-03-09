@@ -3,6 +3,7 @@ import Benifits from "../component/Benifits";
 import Footer from "../component/Footer";
 import Testimonial from "../component/Testimonial";
 import NavBar from "../component/NavBar";
+import Cta from "../component/Cta";
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
       <Hero />
       <Benifits />
       <Testimonial />
+      <Cta />
       <Footer />
     </>
   );
