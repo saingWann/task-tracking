@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllUser, setCurrentUser } from "../features/auth/authentication";
-import useLoginedUser from "../hooks/useLoginedUser";
+
 const NavBar = () => {
-  const { currentUser, allUsers } = useSelector((state) => state.allUsers);
+  const { currentUser } = useSelector((state) => state.allUsers);
   const nav = useNavigate();
   const dispatch = useDispatch();
 
@@ -39,13 +39,19 @@ const NavBar = () => {
             </div>
 
             {currentUser.token ? (
-              <div className="lg:flex lg:items-center lg:justify-end  sm:ml-auto">
+              <div className="flex lg:items-center lg:justify-end items-center  sm:ml-auto">
                 <button
                   onClick={() => handleNav("allTasks")}
                   className="hidden lg:inline-block items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white hover:bg-white/40 focus:bg-white/40 rounded-lg"
                 >
                   {currentUser.name}
                 </button>
+                <div
+                  onClick={() => handleNav("allTasks")}
+                  className="lg:hidden font-bold text-3xl w-8 h-8 flex items-center justify-center  bg-white rounded-full"
+                >
+                  <p className="">{currentUser.name.charAt(0)}</p>
+                </div>
                 <button
                   onClick={handleLogOut}
                   className="inline-flex items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white hover:bg-white/40 focus:bg-white/40 rounded-lg"
@@ -58,13 +64,13 @@ const NavBar = () => {
               <div className="lg:flex lg:items-center lg:justify-end gap-4 sm:ml-auto">
                 <button
                   onClick={() => handleNav("login")}
-                  className="hidden lg:inline-flex items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white bg-white/20 hover:bg-white/40 focus:bg-white/40 rounded-lg"
+                  className="inline-flex items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white bg-white/20 hover:bg-white/40 focus:bg-white/40 rounded-lg"
                 >
                   login
                 </button>
                 <button
                   onClick={() => handleNav("sign-in")}
-                  className="inline-flex items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white bg-white/20 hover:bg-white/40 focus:bg-white/40 rounded-lg"
+                  className="hidden lg:inline-flex items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white bg-white/20 hover:bg-white/40 focus:bg-white/40 rounded-lg"
                   role="button"
                 >
                   Sign up for free

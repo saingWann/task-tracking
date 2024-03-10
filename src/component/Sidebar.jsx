@@ -69,18 +69,21 @@ const Sidebar = () => {
       <div>
         <div className="flex flex-col w-full px-5 py-4">
           <p
-            onClick={() => handleNav("/")}
+            onClick={() => {
+              handleMenu();
+              handleNav("/");
+            }}
             className="font-bold text-xl cursor-pointer hover:text-gray-700"
           >
             KeepOnTrack.
           </p>
-          <p className="capitalize text-sm text-gray-500">stay progressive</p>
+          <p className="capitalize  text-sm text-gray-500">stay progressive</p>
           <X
             onClick={handleMenu}
             size={30}
             strokeWidth={2}
             className={`${
-              isSideBarShown ? "block mt-3" : "hidden"
+              isSideBarShown ? "block mt-3 lg:hidden" : "hidden"
             } cursor-pointer hover:scale-105`}
           />
         </div>

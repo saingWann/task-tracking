@@ -6,6 +6,8 @@ import SignInPage from "./Pages/SignInPage";
 import HomePage from "./Pages/HomePage";
 import { fetchAllUser } from "./features/auth/authentication";
 import Auth from "./Pages/Auth";
+import { motion, AnimatePresence } from "framer-motion";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -16,12 +18,14 @@ const App = () => {
 
   return (
     <main>
-      <Routes>
-        <Route path="/allTasks" element={<Auth />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/sign-in" element={<SignInPage />} />
-        <Route path="/" element={<HomePage />} />
-      </Routes>
+      <AnimatePresence exitBeforeEner>
+        <Routes>
+          <Route path="/allTasks" element={<Auth />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </AnimatePresence>
     </main>
   );
 };

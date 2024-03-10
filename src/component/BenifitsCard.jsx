@@ -90,7 +90,7 @@ const BenifitsCard = ({ title, body, imgUrl, message, index }) => {
         <h2 className="text-xl font-bold leading-tight text-black sm:text-xl lg:text-5xl lg:leading-tight">
           {title}
         </h2>
-        <p className="text-base lg:text-base leading-relaxed text-gray-900 lg:mt-9 mt-3">
+        <p className="text-xs lg:text-base leading-relaxed text-gray-900 lg:mt-9 mt-3">
           {body}
         </p>
       </motion.div>

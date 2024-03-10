@@ -18,3 +18,23 @@ export const benifits = [
         message:"“You made it so simple. My new site is so much faster and easier to work with than my old site.”"
     },
 ]
+
+export const testimonials = [
+    {
+        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgEp7-nspfY4U1d4TyNdZI-_xJFoj-za9bpg&usqp=CAU",
+        name: " Michael Smith",
+        job: "Freelancer Designer",
+        feedback: "“Managing my tasks has never been easier! KeepOnTrack has helped me stay organized and on top of my to-do list. I love the simplicity and flexibility of the platform Highly recommended!”"
+    },
+    {
+        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-5A5iI4_ZVoZj4WC22iBEDLbLH7kO8TbThQ&usqp=CAU",
+        name: "Jenny",
+        job: "Marketing Manager at ABC Company",
+        feedback: " “I've tried many task management tools before, but KeepOnTrack stands out from the rest. It's user-friendly, intuitive, and packed with useful features. Thanks to this tool, I've become much more productive and efficient in managing my daily tasks.”"
+    }, {
+        imgUrl: "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg",
+        name: "David Wilson",
+        job: "Entrepreneur",
+        feedback: " “Since using KeepOnTrack, I've noticed a significant improvement in my productivity. The interface is clean and intuitive, making it easy to navigate and manage tasks efficiently. I appreciate how seamlessly it integrates with my existing workflows. I couldn't imagine my day without it!”"
+    }
+]
