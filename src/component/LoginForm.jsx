@@ -40,21 +40,21 @@ const LoginForm = () => {
   };
   return (
     <main className=" h-screen bg-no-repeat bg-cover overflow-y-hidden">
-      <section className=" mx-auto w-[80%]">
-        <div className="flex flex-col justify-center items-center">
+      <section className=" mx-auto w-[80%] max-sm:w-full max-sm:px-4">
+        <div className="flex flex-col justify-center items-center ">
           <motion.div
             initial={{ opacity: 0, y: -200 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center lg:mt-20 mt-10"
           >
-            <div className="text-center lg:text-5xl md:text-3xl text-xl text-gray-600 font-thin  flex  items-end flex-wrap">
-              <p className="pe-2">Welcome back to</p>
-              <p className="block font-bold lg:text-6xl md:text-5xl text-3xl text-purple-700 ">
+            <div className="text-center lg:text-5xl md:text-3xl text-xl text-gray-600 font-thin  flex  items-end max-sm:justify-center flex-wrap ">
+              <p className="pe-2 inline-block">Welcome back to</p>
+              <p className="inline-block font-bold lg:text-6xl md:text-5xl text-3xl text-purple-700 ">
                 KeepOnTrack.
               </p>
             </div>
-            <p className="text-xl w-full text-center max-sm:text-starts pb-10 pt-4">
+            <p className="text-xl w-full text-center max-sm:text-starts lg:pb-10 pt-4">
               Please login to continue.
             </p>
           </motion.div>
@@ -63,10 +63,10 @@ const LoginForm = () => {
             initial={{ opacity: 0, y: 200 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8 sm:py-16 lg:py-10 shadow-lg  bg-white rounded-md lg:w-[40%] w-full border-2 border-purple-900/20 "
+            className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8 sm:py-16 lg:py-10 shadow-lg  bg-white rounded-md lg:w-[40%] w-full lg:border-2 border-purple-900/20 "
           >
             <div className="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto ">
-              <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
+              <h2 className="lg:text-3xl text-xl font-bold leading-tight text-black ">
                 Log in
               </h2>
               <Formik
@@ -108,6 +108,11 @@ const LoginForm = () => {
                       label="Password"
                     />
                     <div>
+                      <div className="text-xs flex gap-1 font-bold mb-3 ">
+                        <p>demo account:</p>
+                        <p>demoacc@gmail.com - </p>
+                        <p>demo1234</p>
+                      </div>
                       <button
                         type="submit"
                         className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-purple-600 border border-transparent rounded-md focus:outline-none hover:bg-purple-700 focus:bg-purple-700"

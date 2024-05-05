@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllUser, setCurrentUser } from "../features/auth/authentication";
+import { User2Icon } from "lucide-react";
 
 const NavBar = () => {
   const { currentUser } = useSelector((state) => state.allUsers);
@@ -38,13 +39,13 @@ const NavBar = () => {
               </button>
             </div>
 
-            {currentUser.token ? (
+            {currentUser && currentUser.token ? (
               <div className="flex lg:items-center lg:justify-end items-center  sm:ml-auto">
                 <button
                   onClick={() => handleNav("allTasks")}
-                  className="hidden lg:inline-block items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white hover:bg-white/40 focus:bg-white/40 rounded-lg"
+                  className="max-sm:hidden lg:flex gap-2 items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white hover:bg-white/40 focus:bg-white/40 rounded-lg"
                 >
-                  {currentUser.name}
+                  <User2Icon /> <p>{currentUser.name}</p>
                 </button>
                 <div
                   onClick={() => handleNav("allTasks")}

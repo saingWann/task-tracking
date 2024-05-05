@@ -1,8 +1,5 @@
 import { CopyX } from "lucide-react";
-import { motion as m } from "framer-motion";
-
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleEditState, toggleFormState } from "../features/formSlice";
 import { Form, Formik } from "formik";
